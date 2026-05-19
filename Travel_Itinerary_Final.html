@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Itinerary Planner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(180deg, #E8F6F3 0%, #D5F4E6 50%, #C9EFE5 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(26, 118, 135, 0.15);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1A7687 0%, #2E9CAA 50%, #3BB3C0 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '🌊';
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.1;
+            top: -20px;
+            right: -20px;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .language-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            padding: 6px;
+            border-radius: 8px;
+        }
+
+        .language-toggle button {
+            padding: 6px 14px;
+            border: none;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-radius: 6px;
+        }
+
+        .language-toggle button.active {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .summary-section {
+            padding: 35px 30px;
+            background: linear-gradient(135deg, #FFF8E7 0%, #FFF6E0 100%);
+            border-bottom: 3px dashed #FFB366;
+        }
+
+        .summary-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2E5F66;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #FFD4A3;
+            transition: all 0.3s;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.15);
+        }
+
+        .summary-card .icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .summary-card .label {
+            font-size: 11px;
+            color: #2E5F66;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .summary-card .value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1A7687;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .itinerary-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2E5F66;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .days-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .day-card {
+            background: linear-gradient(135deg, #E8F6F3 0%, #D5F4E6 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid #3BB3C0;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .day-card:hover {
+            box-shadow: 0 10px 35px rgba(59, 179, 192, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .day-header {
+            background: linear-gradient(135deg, #FF7F50 0%, #FFB366 100%);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .day-number {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .day-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .day-date {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-top: 3px;
+        }
+
+        .weather-info {
+            background: linear-gradient(135deg, #FFE4D4 0%, #FFD4C0 100%);
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #FFD4A3;
+            font-size: 13px;
+        }
+
+        .weather-icon {
+            font-size: 24px;
+            margin-right: 8px;
+        }
+
+        .weather-temp {
+            font-weight: 600;
+            color: #1A7687;
+        }
+
+        .weather-desc {
+            color: #2E5F66;
+            font-size: 12px;
+        }
+
+        .day-content {
+            padding: 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .day-card.expanded .day-content {
+            max-height: 500px;
+        }
+
+        .locations-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .location-item {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #3BB3C0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .location-item:hover {
+            background: #F0FFFE;
+            box-shadow: 0 3px 10px rgba(59, 179, 192, 0.15);
+        }
+
+        .location-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1A7687;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(26, 118, 135, 0.6);
+            animation: fadeIn 0.3s;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            margin: 50px auto;
+            padding: 0;
+            border-radius: 18px;
+            width: 90%;
+            max-width: 550px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 70px rgba(26, 118, 135, 0.3);
+            animation: slideUp 0.3s;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #1A7687 0%, #2E9CAA 100%);
+            color: white;
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-radius: 18px 18px 0 0;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 22px;
+            flex: 1;
+            line-height: 1.4;
+        }
+
+        .close-btn {
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-left: 15px;
+        }
+
+        .close-btn:hover {
+            opacity: 0.7;
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .detail-section {
+            margin-bottom: 22px;
+        }
+
+        .detail-label {
+            color: #FF7F50;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .detail-content {
+            color: #2E5F66;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .detail-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .detail-list li {
+            padding-left: 20px;
+            position: relative;
+            color: #2E5F66;
+        }
+
+        .detail-list li:before {
+            content: "🌴";
+            position: absolute;
+            left: 0;
+        }
+
+        .food-list li:before {
+            content: "🍽️";
+        }
+
+        .shows-list li:before {
+            content: "⭐";
+        }
+
+        .maps-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF7F50 0%, #FFB366 100%);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .maps-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 127, 80, 0.3);
+        }
+
+        .cn { display: none; }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .days-container {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 20px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="language-toggle">
+                <button class="active" onclick="setLanguage('en')">EN</button>
+                <button onclick="setLanguage('cn')">中文</button>
+            </div>
+            <h1 id="headerTitle">🏝️ Okinawa & Taiwan</h1>
+            <p id="headerDates">26 May - 2 June 2026</p>
+        </div>
+
+        <div class="summary-section">
+            <div class="summary-title" id="summaryTitle">✨ Trip Highlights ✨</div>
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <div class="icon">📅</div>
+                    <div class="label" id="daysLabel">Days</div>
+                    <div class="value">8</div>
+                </div>
+                <div class="summary-card">
+                    <div class="icon">🌍</div>
+                    <div class="label" id="countriesLabel">Countries</div>
+                    <div class="value">2</div>
+                </div>
+                <div class="summary-card">
+                    <div class="icon">⭐</div>
+                    <div class="label" id="highlightsLabel">Highlights</div>
+                    <div class="value" style="font-size: 16px;">Aquarium, Beaches, Night Markets</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="itinerary-title" id="itineraryTitle">📍 Your Journey</div>
+            <div class="days-container" id="itinerary"></div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="activityModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-section">
+                    <div class="detail-label" id="hoursLabel">Hours</div>
+                    <div class="detail-content" id="modalHours"></div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-label" id="distanceLabel">Distance</div>
+                    <div class="detail-content" id="modalDistance"></div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-label" id="durationLabel">Stay</div>
+                    <div class="detail-content" id="modalDuration"></div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-label" id="parkingLabel">🅿️ Parking</div>
+                    <div class="detail-content" id="modalParking"></div>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-label" id="foodLabel">🍽️ Top Bites</div>
+                    <ul class="detail-list food-list" id="modalFoods"></ul>
+                </div>
+
+                <div class="detail-section" id="showsSection" style="display: none;">
+                    <div class="detail-label" id="showsLabel">⭐ Must See</div>
+                    <ul class="detail-list shows-list" id="modalShows"></ul>
+                </div>
+
+                <div class="detail-section">
+                    <div class="detail-label" id="activitiesLabel">🎯 Activities</div>
+                    <div class="detail-content" id="modalActivities"></div>
+                </div>
+
+                <div id="modalMapsSection">
+                    <a id="modalMapsLink" class="maps-button" target="_blank">📍 View on Maps</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLanguage = 'en';
+
+        const translations = {
+            en: {
+                summaryTitle: '✨ Trip Highlights ✨',
+                daysLabel: 'Days',
+                countriesLabel: 'Countries',
+                highlightsLabel: 'Highlights',
+                itineraryTitle: '📍 Your Journey',
+                hoursLabel: 'Hours',
+                distanceLabel: 'Distance',
+                durationLabel: 'Stay',
+                parkingLabel: '🅿️ Parking',
+                foodLabel: '🍽️ Top Bites',
+                showsLabel: '⭐ Must See',
+                activitiesLabel: '🎯 Activities',
+                notAvailable: 'Not specified',
+                noParking: 'Information not available',
+                noFood: 'No food recommendations',
+                noActivities: 'N/A'
+            },
+            cn: {
+                summaryTitle: '✨ 行程亮点 ✨',
+                daysLabel: '天数',
+                countriesLabel: '国家',
+                highlightsLabel: '亮点',
+                itineraryTitle: '📍 你的旅程',
+                hoursLabel: '营业时间',
+                distanceLabel: '距离',
+                durationLabel: '停留',
+                parkingLabel: '🅿️ 停车',
+                foodLabel: '🍽️ 美食推荐',
+                showsLabel: '⭐ 必看表演',
+                activitiesLabel: '🎯 活动',
+                notAvailable: '未指定',
+                noParking: '信息不可用',
+                noFood: '暂无美食推荐',
+                noActivities: '暂无'
+            }
+        };
+
+        const weatherData = {
+            '2026-05-26': { icon: '✈️', temp: '28°C', desc: 'Clear', condition: 'Departure Day' },
+            '2026-05-27': { icon: '☀️', temp: '27°C', desc: 'Sunny & Warm', condition: 'Arrival' },
+            '2026-05-28': { icon: '⛅', temp: '28°C', desc: 'Partly Cloudy', condition: 'Perfect Day' },
+            '2026-05-29': { icon: '☀️', temp: '29°C', desc: 'Sunny & Hot', condition: 'Beach Ready' },
+            '2026-05-30': { icon: '🌤️', temp: '27°C', desc: 'Pleasant', condition: 'Farewell' },
+            '2026-05-31': { icon: '☀️', temp: '28°C', desc: 'Warm', condition: 'Taiwan Welcome' },
+            '2026-06-01': { icon: '⛅', temp: '29°C', desc: 'Tropical', condition: 'Explorer Day' },
+            '2026-06-02': { icon: '☀️', temp: '28°C', desc: 'Sunny', condition: 'Last Day' }
+        };
+
+        const tripData = {
+            title: { en: '🏝️ Okinawa & Taiwan', cn: '🏝️ 冲绳&台湾' },
+            dates: { en: '26 May - 2 June 2026', cn: '2026年5月26日-6月2日' },
+            days: [
+                {
+                    date: '2026-05-26',
+                    dayName: { en: 'Pre-Trip', cn: '出发前' },
+                    activities: [
+                        { time: '19:45', name: { en: 'Depart KLIA 2', cn: '从吉隆坡国际机场出发' }, hours: '22:45', distance: 'To Singapore - Flight', duration: '3 hours', parking: 'N/A', foods: [], shows: [], activities: 'International flight', mapsLink: '' }
+                    ]
+                },
+                {
+                    date: '2026-05-27',
+                    dayName: { en: 'Day 1: Okinawa Arrival', cn: '第一天：抵达冲绳' },
+                    activities: [
+                        { time: '08:35', name: { en: 'Arrive Okinawa Airport', cn: '抵达冲绳机场' }, hours: '09:00-20:00', distance: '20 min to City', duration: '30 min', parking: 'Airport parking available', foods: [], shows: [], activities: 'Pick up rental car', mapsLink: 'https://maps.google.com/maps/search/Okinawa+Airport/' },
+                        { time: '11:00', name: { en: 'Breakfast - Tabi no Owari', cn: '旅の终わりの朝ごはん' }, hours: '09:00-12:00', distance: '20 min drive', duration: '1 hour', parking: 'Available nearby', foods: ['Fresh Okinawa soba', 'Local pork set meal', 'Goya tempura'], shows: [], activities: 'Traditional breakfast', mapsLink: 'https://maps.app.goo.gl/RvW3gkwB2AbJGs2t7' },
+                        { time: '12:40', name: { en: 'Ryukyu Glass Village', cn: '琉球玻璃村' }, hours: '09:30-17:30', distance: '30 min drive', duration: '2 hours', parking: 'Free parking', foods: ['Local cafeteria', 'Soft drinks', 'Light snacks'], shows: [], activities: 'Watch glass demonstrations, shop for art', mapsLink: 'https://maps.app.goo.gl/kCYKrZwWEuxHUQNj9' },
+                        { time: '15:00', name: { en: 'Ashibinaa Outlet', cn: 'Ashibinaa奥特莱斯' }, hours: '10:00-20:00', distance: '15 min drive', duration: '2 hours', parking: 'Free large parking', foods: ['Food court', 'Coffee shops', 'Casual dining'], shows: [], activities: 'Shopping, brand outlets', mapsLink: 'https://maps.app.goo.gl/KuR2WiLU9V3AXUL96' },
+                        { time: '17:15', name: { en: 'Seifa Island', cn: '濑长岛' }, hours: '10:00-20:00', distance: '10 min drive', duration: '1.5 hours', parking: 'Free parking', foods: ['Island cafes', 'Local restaurants', 'Beach snacks'], shows: [], activities: 'Scenic coastal views, photos', mapsLink: 'https://maps.app.goo.gl/KWm9JFEJYmQe1rGE9' },
+                        { time: '19:25', name: { en: 'Yakiniku Dinner', cn: '烤肉琉球の牛' }, hours: '16:30-23:00', distance: '40 min (pre-booked)', duration: '2 hours', parking: 'Restaurant parking', foods: ['Okinawa wagyu beef', 'Marbled cuts', 'Local pork'], shows: [], activities: 'Premium BBQ dining', mapsLink: 'https://maps.app.goo.gl/aP7rJ641yXVsWs4N6' }
+                    ]
+                },
+                {
+                    date: '2026-05-28',
+                    dayName: { en: 'Day 2: Aquarium & Islands', cn: '第二天：水族馆' },
+                    activities: [
+                        { time: '08:00', name: { en: 'Breakfast - Pork Tamago', cn: '猪肉鸡蛋盖饭' }, hours: '07:00-20:00', distance: '6 min drive', duration: '30 min', parking: 'Free parking', foods: ['Pork tamago rice bowl', 'Spam musubi', 'Local coffee'], shows: [], activities: 'Authentic breakfast', mapsLink: 'https://maps.app.goo.gl/EoVowNn9ZemGSJgbA' },
+                        { time: '10:15', name: { en: 'Churaumi Aquarium', cn: '冲绳美丽海水族馆' }, hours: '08:30-18:30', distance: '1h 45min drive', duration: '3 hours', parking: 'Large garage - 800 yen', foods: ['Aquarium restaurant', 'Cafe lounge', 'Snacks'], shows: ['10:00-10:20 Dolphin feeding', '10:30/11:30 Dolphin show', '14:00 Sea lion performance'], activities: 'Whale sharks, tropical fish', mapsLink: 'https://maps.app.goo.gl/6JiQ2AdLscQ5BeU69' },
+                        { time: '13:45', name: { en: 'Coffee - Shinmei', cn: '神明コーヒー' }, hours: '10:00-16:30', distance: '25 min drive', duration: '1 hour', parking: 'Street parking', foods: ['Brown sugar coffee', 'Shaved ice', 'Pastries'], shows: [], activities: 'Specialty coffee', mapsLink: 'https://maps.app.goo.gl/QRxYUuUbfR2Dgvs58' },
+                        { time: '15:00', name: { en: 'Kouri Island', cn: '古宇利岛' }, hours: 'Open 24/7', distance: '15 min drive', duration: '3 hours', parking: 'Free parking', foods: ['Shrimp ice cream', 'Island restaurants'], shows: [], activities: 'Island bridge, Heart Rock', mapsLink: 'https://maps.app.goo.gl/hiS4W4NE5eN7EqbT9' },
+                        { time: '19:10', name: { en: 'Cape Manzomo', cn: '万座毛' }, hours: '08:00-20:00', distance: '1h 10 min drive', duration: '1 hour', parking: 'Paid - 300 yen', foods: ['Cape cafe'], shows: [], activities: 'Dramatic cliff views, sunset', mapsLink: 'https://maps.app.goo.gl/J1jzwC6rC1xFnkM78' }
+                    ]
+                },
+                {
+                    date: '2026-05-29',
+                    dayName: { en: 'Day 3: Naha City', cn: '第三天：那霸市' },
+                    activities: [
+                        { time: '09:20', name: { en: 'Breakfast - Ikisoba Noodles', cn: '生そば 中村麺兵衛' }, hours: '06:30-22:30', distance: '50 min drive', duration: '1 hour', parking: 'Street parking', foods: ['Okinawa soba', 'Pork belly rice', 'Tempura'], shows: [], activities: 'Famous noodle shop', mapsLink: 'https://maps.app.goo.gl/H3vxHokntrVAeN5Y7' },
+                        { time: '10:30', name: { en: 'Naminoue Shrine', cn: '波上宫' }, hours: '09:00-17:00', distance: '6 min drive', duration: '1.5 hours', parking: 'Free parking', foods: [], shows: [], activities: 'Historic Shinto shrine', mapsLink: 'https://maps.app.goo.gl/3NBKVizaJGj7v518A' },
+                        { time: '12:45', name: { en: 'Makishi Market', cn: '牧志公设市场' }, hours: '08:00-22:00', distance: '20 min drive', duration: '2-4 hours', parking: 'Nearby parking lots', foods: ['Fresh seafood stalls', 'Local street food', 'Izakaya restaurants'], shows: [], activities: 'Local market culture', mapsLink: 'https://maps.app.goo.gl/cSnCzQhNj8C1MuxRA' },
+                        { time: '17:15', name: { en: 'Darumaji Temple', cn: '达摩寺' }, hours: '07:00-18:00', distance: '25 min drive', duration: '45 min', parking: 'Free temple parking', foods: [], shows: [], activities: 'Historic Buddhist temple', mapsLink: 'https://maps.app.goo.gl/2LFfoDhgJrC9Vynp6' }
+                    ]
+                },
+                {
+                    date: '2026-05-30',
+                    dayName: { en: 'Day 4: Beaches & Depart', cn: '第四天：海滩出发' },
+                    activities: [
+                        { time: '08:00', name: { en: 'Coffee - Good Day', cn: 'Good Day咖啡' }, hours: '06:00-15:00', distance: '3 min / 17 min walk', duration: '1 hour', parking: 'Street parking', foods: ['Specialty coffee', 'Pastries'], shows: [], activities: 'Morning coffee', mapsLink: 'https://maps.app.goo.gl/2rgGebyVv1diuRXj8' },
+                        { time: '10:00', name: { en: 'American Village', cn: '美国村' }, hours: '10:00-22:00', distance: '8 min drive', duration: '2.5 hours', parking: 'Free large lot', foods: ['American restaurants', 'Cafes', 'Food court'], shows: [], activities: 'Shopping, street performances', mapsLink: 'https://maps.app.goo.gl/EZ3S6owADi2AiaJB8' },
+                        { time: '13:50', name: { en: 'Cape Chinen', cn: '知念岬' }, hours: 'Open 24/7', distance: '1h 20 min', duration: '1 hour', parking: 'Free parking', foods: [], shows: [], activities: 'Scenic cape views', mapsLink: 'https://maps.app.goo.gl/K7pzUU8iS8tAUKvg8' },
+                        { time: '15:15', name: { en: 'Azama Beach', cn: 'Azama太阳海滩' }, hours: 'Open 24/7', distance: '6 min drive', duration: '1.5 hours', parking: 'Beach parking', foods: ['Beach shops'], shows: [], activities: 'Swimming, relaxation', mapsLink: 'https://maps.app.goo.gl/5sm6ULgFZUx7ozGq8' },
+                        { time: '17:45', name: { en: 'Hotel Check-in', cn: 'Hotel La\'gent入住' }, hours: '14:00-23:00', distance: '1 hour', duration: '30 min', parking: 'Hotel parking', foods: ['Hotel restaurant'], shows: [], activities: 'Prepare for Taiwan', mapsLink: 'https://maps.app.goo.gl/MLsfc3Vqp678a6PF9' },
+                        { time: '18:45', name: { en: 'Return Rental Car', cn: '归还租车' }, hours: '09:00-20:00', distance: '30 min', duration: '45 min', parking: 'Facility parking', foods: [], shows: [], activities: 'Return car at station', mapsLink: '' }
+                    ]
+                },
+                {
+                    date: '2026-05-31',
+                    dayName: { en: 'Day 5: Taiwan Arrival', cn: '第五天：抵达台湾' },
+                    activities: [
+                        { time: '08:10', name: { en: 'Flight to Taiwan', cn: '飞往台湾' }, hours: '08:10-08:45', distance: 'Flight', duration: '1.5 hours', parking: 'N/A', foods: ['Airline meal'], shows: [], activities: 'International flight', mapsLink: '' },
+                        { time: '11:15', name: { en: 'Tucheng World Garden', cn: '土城世界花园' }, hours: 'Variable', distance: '50 min from airport', duration: '30 min', parking: 'Free parking', foods: ['Garden cafes'], shows: [], activities: 'Beautiful flower garden', mapsLink: 'https://maps.app.goo.gl/E7QN5BSETMt3yAv18' },
+                        { time: '12:00', name: { en: 'Goose Rice Lunch', cn: '土城阿城鹅肉' }, hours: '11:00-20:00', distance: '5 min', duration: '1-1.5 hours', parking: 'Street parking', foods: ['Braised goose rice', 'Goose dishes', 'Hot pot'], shows: [], activities: 'Local restaurant', mapsLink: 'https://maps.app.goo.gl/iRwgGeJe1u9kVXjK8' },
+                        { time: '14:40', name: { en: 'Daxi Old Street', cn: '大溪老街' }, hours: '10:00-20:00', distance: '40 min', duration: '2 hours', parking: 'Street parking', foods: ['Street vendors', 'Local snacks'], shows: [], activities: 'Historic streets, shopping', mapsLink: 'https://maps.app.goo.gl/Hpvchb91rn5X7iYz8' },
+                        { time: '20:40', name: { en: 'Nanya Night Market', cn: '南雅夜市' }, hours: 'Open late', distance: '15 min', duration: '2+ hours', parking: 'Parking nearby', foods: ['Market stalls', 'Street snacks', 'Local specialties'], shows: [], activities: 'Night market experience', mapsLink: 'https://maps.app.goo.gl/UYAWN7UVEzoxXf4H6' }
+                    ]
+                },
+                {
+                    date: '2026-06-01',
+                    dayName: { en: 'Day 6: Mountain Explorer', cn: '第六天：山区探险' },
+                    activities: [
+                        { time: '08:00', name: { en: 'Jiufen Old Street', cn: '九份老街' }, hours: '10:00-20:00', distance: 'Variable', duration: '2-3 hours', parking: 'Lots nearby', foods: ['Taro balls', 'Tea houses', 'Fortune cookies'], shows: [], activities: 'Historic mountain village', mapsLink: '' },
+                        { time: '10:00', name: { en: 'Shifen Waterfall', cn: '十份瀑布' }, hours: '09:00-16:30', distance: 'From Jiufen', duration: '2 hours', parking: 'Free parking', foods: ['Local stalls'], shows: [], activities: 'Hiking, waterfall views', mapsLink: '' },
+                        { time: '13:00', name: { en: 'Shifen Old Street', cn: '十份老街' }, hours: '08:00-19:00', distance: '6 min', duration: '1.5 hours', parking: 'Street parking', foods: ['Restaurants', 'Tea shops'], shows: [], activities: 'Historic town, sky lanterns', mapsLink: '' },
+                        { time: '15:00', name: { en: 'Taipei 101', cn: 'Taipei 101' }, hours: 'Variable', distance: '1+ hour', duration: '2 hours', parking: 'Lots nearby', foods: ['101 restaurants', 'Cafes'], shows: [], activities: 'Iconic views, observation deck', mapsLink: 'https://maps.app.goo.gl/Y5JEMfDSqrThEYqw5' },
+                        { time: '17:30', name: { en: 'Chicken Soup Dinner', cn: '骥园鸡汤' }, hours: '17:30-21:00', distance: 'Taipei', duration: '1 hour', parking: 'Street parking', foods: ['Chicken soup', 'Rice dishes'], shows: [], activities: 'Authentic Taipei dinner', mapsLink: 'https://maps.app.goo.gl/JBmfXdcfGiqPPgiMA' }
+                    ]
+                },
+                {
+                    date: '2026-06-02',
+                    dayName: { en: 'Day 7: Taipei Finale', cn: '第七天：台北尾声' },
+                    activities: [
+                        { time: '08:00', name: { en: 'Longshan Temple', cn: '龙山寺' }, hours: '06:00-22:00', distance: 'Central Taipei', duration: '1 hour', parking: 'Lots nearby', foods: [], shows: [], activities: 'Historic Buddhist temple', mapsLink: 'https://maps.app.goo.gl/jDmPC2X2pFb45SZk8' },
+                        { time: '09:30', name: { en: 'Ximending', cn: '西门町' }, hours: '10:00-22:00', distance: '10 min walk', duration: '1.5-2 hours', parking: 'Nearby parking', foods: ['Street food', 'Restaurants', 'Cafes'], shows: [], activities: 'Shopping, street performances', mapsLink: '' },
+                        { time: '13:00', name: { en: 'Depart for Airport', cn: '前往机场' }, hours: 'Flight dependent', distance: '1 hour', duration: '1 hour + checkin', parking: 'Airport parking', foods: ['Airport food'], shows: [], activities: 'Final shopping', mapsLink: '' },
+                        { time: '16:30', name: { en: 'Flight to Hong Kong', cn: '飞往香港' }, hours: 'Flight schedule', distance: 'Flight', duration: '2 hours', parking: 'N/A', foods: ['Airline meal'], shows: [], activities: 'International flight', mapsLink: '' },
+                        { time: '21:30', name: { en: 'Flight Home', cn: '飞往马来西亚' }, hours: 'Flight schedule', distance: 'Flight', duration: '3 hours', parking: 'N/A', foods: ['Airline meal'], shows: [], activities: 'Return home', mapsLink: '' }
+                    ]
+                }
+            ]
+        };
+
+        function renderItinerary() {
+            const itinerary = document.getElementById('itinerary');
+            itinerary.innerHTML = '';
+
+            tripData.days.forEach((day, dayIndex) => {
+                const weather = weatherData[day.date] || { icon: '🌤️', temp: '28°C', desc: 'Pleasant', condition: 'Nice day' };
+
+                const dayCard = document.createElement('div');
+                dayCard.className = 'day-card';
+                dayCard.onclick = () => toggleDay(dayCard);
+
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'day-header';
+                dayHeader.innerHTML = `
+                    <div class="day-number">${dayIndex + 1}</div>
+                    <div class="day-name">${day.dayName[currentLanguage]}</div>
+                    <div class="day-date">${new Date(day.date).toLocaleDateString(currentLanguage === 'en' ? 'en-US' : 'zh-CN', { month: 'short', day: 'numeric' })}</div>
+                `;
+
+                const weatherInfo = document.createElement('div');
+                weatherInfo.className = 'weather-info';
+                weatherInfo.innerHTML = `
+                    <span class="weather-icon">${weather.icon}</span>
+                    <span class="weather-temp">${weather.temp}</span>
+                    <span class="weather-desc"> • ${weather.desc}</span>
+                `;
+
+                const dayContent = document.createElement('div');
+                dayContent.className = 'day-content';
+
+                const locationsList = document.createElement('div');
+                locationsList.className = 'locations-list';
+
+                day.activities.forEach((activity) => {
+                    const locationItem = document.createElement('div');
+                    locationItem.className = 'location-item';
+                    locationItem.onclick = (e) => {
+                        e.stopPropagation();
+                        openModal(activity);
+                    };
+
+                    const locationName = document.createElement('div');
+                    locationName.className = 'location-name';
+                    locationName.textContent = `${activity.time} • ${activity.name[currentLanguage]}`;
+
+                    locationItem.appendChild(locationName);
+                    locationsList.appendChild(locationItem);
+                });
+
+                dayContent.appendChild(locationsList);
+                dayCard.appendChild(dayHeader);
+                dayCard.appendChild(weatherInfo);
+                dayCard.appendChild(dayContent);
+                itinerary.appendChild(dayCard);
+            });
+
+            updateLanguage();
+        }
+
+        function toggleDay(card) {
+            card.classList.toggle('expanded');
+        }
+
+        function openModal(activity) {
+            const modal = document.getElementById('activityModal');
+            document.getElementById('modalTitle').textContent = activity.name[currentLanguage];
+            document.getElementById('modalHours').textContent = activity.hours || translations[currentLanguage].notAvailable;
+            document.getElementById('modalDistance').textContent = activity.distance || translations[currentLanguage].notAvailable;
+            document.getElementById('modalDuration').textContent = activity.duration || translations[currentLanguage].notAvailable;
+            document.getElementById('modalParking').textContent = activity.parking || translations[currentLanguage].noParking;
+            document.getElementById('modalActivities').textContent = activity.activities || translations[currentLanguage].noActivities;
+
+            const foodsList = document.getElementById('modalFoods');
+            foodsList.innerHTML = '';
+            if (activity.foods && activity.foods.length > 0) {
+                activity.foods.slice(0, 3).forEach(food => {
+                    const li = document.createElement('li');
+                    li.textContent = food;
+                    foodsList.appendChild(li);
+                });
+            }
+
+            const showsSection = document.getElementById('showsSection');
+            const showsList = document.getElementById('modalShows');
+            showsList.innerHTML = '';
+            if (activity.shows && activity.shows.length > 0) {
+                showsSection.style.display = 'block';
+                activity.shows.forEach(show => {
+                    const li = document.createElement('li');
+                    li.textContent = show;
+                    showsList.appendChild(li);
+                });
+            } else {
+                showsSection.style.display = 'none';
+            }
+
+            const mapsLink = document.getElementById('modalMapsLink');
+            if (activity.mapsLink) {
+                mapsLink.href = activity.mapsLink;
+                document.getElementById('modalMapsSection').style.display = 'block';
+            } else {
+                document.getElementById('modalMapsSection').style.display = 'none';
+            }
+
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('activityModal').style.display = 'none';
+        }
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            document.querySelectorAll('.language-toggle button').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderItinerary();
+        }
+
+        function updateLanguage() {
+            document.getElementById('headerTitle').textContent = tripData.title[currentLanguage];
+            document.getElementById('headerDates').textContent = tripData.dates[currentLanguage];
+            document.getElementById('summaryTitle').textContent = translations[currentLanguage].summaryTitle;
+            document.getElementById('daysLabel').textContent = translations[currentLanguage].daysLabel;
+            document.getElementById('countriesLabel').textContent = translations[currentLanguage].countriesLabel;
+            document.getElementById('highlightsLabel').textContent = translations[currentLanguage].highlightsLabel;
+            document.getElementById('itineraryTitle').textContent = translations[currentLanguage].itineraryTitle;
+
+            document.getElementById('hoursLabel').textContent = translations[currentLanguage].hoursLabel;
+            document.getElementById('distanceLabel').textContent = translations[currentLanguage].distanceLabel;
+            document.getElementById('durationLabel').textContent = translations[currentLanguage].durationLabel;
+            document.getElementById('parkingLabel').textContent = translations[currentLanguage].parkingLabel;
+            document.getElementById('foodLabel').textContent = translations[currentLanguage].foodLabel;
+            document.getElementById('showsLabel').textContent = translations[currentLanguage].showsLabel;
+            document.getElementById('activitiesLabel').textContent = translations[currentLanguage].activitiesLabel;
+
+            document.querySelectorAll('.en').forEach(el => el.style.display = currentLanguage === 'en' ? 'inline' : 'none');
+            document.querySelectorAll('.cn').forEach(el => el.style.display = currentLanguage === 'cn' ? 'inline' : 'none');
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('activityModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        renderItinerary();
+    </script>
+</body>
+</html>
