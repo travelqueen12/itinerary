@@ -3,67 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Family Travel Dashboard</title>
+  <title>Taiwan Okinawa Trip</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+<body class="bg-gradient-to-tr from-slate-100 to-indigo-50/50 text-slate-800 antialiased min-h-screen">
 
-  <div class="max-w-md mx-auto bg-white min-h-screen shadow-xl flex flex-col relative pb-12">
+  <div class="max-w-md mx-auto bg-white min-h-screen shadow-2xl flex flex-col relative pb-12 border-x border-slate-100">
 
-    <header class="sticky top-0 z-50 bg-slate-900 text-white px-4 py-3 shadow-md flex items-center justify-between">
+    <header class="sticky top-0 z-50 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white px-4 py-3.5 shadow-lg flex items-center justify-between">
       <div>
-        <h1 id="ui-app-title" class="text-sm font-bold tracking-tight uppercase text-slate-400">Friend's Family Trip</h1>
-        <span id="active-date-badge" class="inline-block mt-0.5 text-xs bg-indigo-600 px-2 py-0.5 rounded-full font-medium tracking-wide">
+        <h1 id="ui-app-title" class="text-base font-extrabold tracking-tight uppercase drop-shadow-xs">Taiwan Okinawa Trip</h1>
+        <span id="active-date-badge" class="inline-block mt-1 text-xs bg-white/20 backdrop-blur-md px-2.5 py-0.5 rounded-full font-bold tracking-wide border border-white/10">
           26 May 2026
         </span>
       </div>
       
-      <button onclick="toggleLanguage()" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold tracking-wider flex items-center gap-1 transition-all">
+      <button onclick="toggleLanguage()" class="bg-white/10 hover:bg-white/20 active:scale-95 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-xl text-xs font-bold tracking-wider flex items-center gap-1.5 transition-all cursor-pointer">
         🌐 <span id="lang-btn-text">中文</span>
       </button>
     </header>
 
     <main class="p-4 space-y-4 flex-1">
 
-      <section class="bg-gradient-to-br from-indigo-900 to-slate-900 text-white rounded-2xl p-4 shadow-sm">
-        <div class="flex justify-between items-center mb-3">
-          <h2 id="ui-weather-title" class="text-xs font-bold uppercase tracking-wider text-indigo-300">Live Weather Updates / 实时天气</h2>
-          <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-mono flex items-center gap-1">
-            <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping"></span> Live / 实时更新
+      <section class="bg-gradient-to-br from-slate-900 via-indigo-950 to-purple-950 text-white rounded-2xl p-4 shadow-xl relative overflow-hidden border border-white/5">
+        <div class="absolute -right-6 -top-6 w-24 h-24 bg-pink-500/10 rounded-full blur-xl"></div>
+        <div class="absolute -left-6 -bottom-6 w-24 h-24 bg-cyan-500/10 rounded-full blur-xl"></div>
+        
+        <div class="flex justify-between items-center mb-3 relative z-10">
+          <h2 id="ui-weather-title" class="text-xs font-extrabold uppercase tracking-widest text-indigo-300">Live Weather Updates / 实时天气</h2>
+          <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-mono font-bold flex items-center gap-1 border border-emerald-500/30">
+            <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> Live Sync
           </span>
         </div>
         
-        <div class="grid grid-cols-2 gap-3">
-          <div class="bg-white/5 border border-white/10 rounded-xl p-3 flex flex-col justify-between">
-            <span id="ui-city-okinawa" class="text-xs font-semibold text-slate-300">Okinawa (冲绳)</span>
+        <div class="grid grid-cols-2 gap-3 relative z-10">
+          <div class="bg-white/5 border border-white/10 rounded-xl p-3 flex flex-col justify-between backdrop-blur-xs">
+            <span id="ui-city-okinawa" class="text-xs font-bold text-slate-300 flex items-center gap-1">🇯🇵 Okinawa</span>
             <div class="flex items-baseline gap-1 my-1">
-              <span id="okinawa-temp" class="text-2xl font-bold tracking-tight">--°C</span>
+              <span id="okinawa-temp" class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-orange-400">--°C</span>
             </div>
-            <span id="okinawa-status" class="text-[11px] text-slate-400 font-medium">Fetching...</span>
+            <span id="okinawa-status" class="text-[11px] text-slate-400 font-medium">Updating...</span>
           </div>
           
-          <div class="bg-white/5 border border-white/10 rounded-xl p-3 flex flex-col justify-between">
-            <span id="ui-city-taipei" class="text-xs font-semibold text-slate-300">Taipei (台北)</span>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-3 flex flex-col justify-between backdrop-blur-xs">
+            <span id="ui-city-taipei" class="text-xs font-bold text-slate-300 flex items-center gap-1">🇹🇼 Taipei</span>
             <div class="flex items-baseline gap-1 my-1">
-              <span id="taipei-temp" class="text-2xl font-bold tracking-tight">--°C</span>
+              <span id="taipei-temp" class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-teal-400">--°C</span>
             </div>
-            <span id="taipei-status" class="text-[11px] text-slate-400 font-medium">Fetching...</span>
+            <span id="taipei-status" class="text-[11px] text-slate-400 font-medium">Updating...</span>
           </div>
         </div>
       </section>
 
-      <nav id="day-tabs-container" class="flex gap-2 overflow-x-auto pb-1 no-scrollbar sticky top-[56px] bg-white py-2 z-40 shadow-[0_4px_6px_-4px_rgba(0,0,0,0.05)]">
+      <nav id="day-tabs-container" class="flex gap-2 overflow-x-auto pb-2 no-scrollbar sticky top-[64px] bg-white py-2 z-40 shadow-[0_10px_15px_-10px_rgba(0,0,0,0.05)]">
         </nav>
 
-      <div id="timeline-container" class="space-y-4">
+      <div id="timeline-container" class="space-y-4 pt-1">
         </div>
 
     </main>
@@ -73,7 +76,7 @@
     let currentLang = 'EN'; 
     let currentDayIndex = 0; 
 
-    // Re-mapped structural array parsing her standalone data vs joint 28/29 itinerary data
+    // Deep parsing integration combining full standalone and rich text from joint sequences
     const itineraryData = [
       {
         date: "26 May 2026",
@@ -83,35 +86,35 @@
           {
             type: "transit",
             time: "19:45",
-            titleEN: "Depart to Airport (KLIA2)",
-            titleZH: "前往吉隆坡第二航站楼 (KLIA2)",
-            durationEN: "⏱️ Transit Duration: ~1h from city center",
-            durationZH: "⏱️ 预计车程：市区出发约 1 小时",
-            shoppingEN: "Collect pre-booked mobile data SIMs and check emergency medicines.",
-            shoppingZH: "可在机场柜台领取预订的上网卡，备齐随身常备药品。",
-            foodEN: "Grab regional Malaysian food bites or light snacks inside the terminal departure hall.",
-            foodZH: "推荐在出发大厅简单享用道地的本地椰浆饭或南洋咖啡茶点。"
+            titleEN: "Head to Airport Terminal (KLIA2)",
+            titleZH: "从市区出发前往吉隆坡第二航站楼 (KLIA2)",
+            durationEN: "⏱️ Travel Time: ~1h • Private Charter Transfer",
+            durationZH: "⏱️ 预计车程：约 1 小时 • 专属司机平稳护送",
+            shoppingEN: "Collect your pre-booked travel Wi-Fi routers or international eSIM profile cards.",
+            shoppingZH: "记得在航站楼柜台领取预订的移动随身Wi-Fi或激活漫游流量卡。",
+            foodEN: "Grab delicious local Nasi Lemak or warm coffee at airport departure gates.",
+            foodZH: "出发前可前往美食大厅享用一份经典的本地椰浆饭或南洋风味烤吐司咖啡。"
           },
           {
             type: "flight",
             time: "22:45",
-            titleEN: "Transit Flight to Singapore Changi Airport",
-            titleZH: "搭乘航班飞往新加坡樟宜机场转机",
-            durationEN: "⏱️ Flight Duration: 1h 20m",
+            titleEN: "Flight Departure to Singapore Changi Airport",
+            titleZH: "跨国航班起飞：飞往新加坡樟宜机场",
+            durationEN: "⏱️ Air Travel Duration: 1h 20m",
             durationZH: "⏱️ 预计飞行时间：1 小时 20 分钟",
             isFlight: true,
             flightDetails: {
-              carrier: "Budget Regional Jet",
+              carrier: "Regional Connecting Jet",
               depTime: "22:45",
-              terminal: "KLIA2 Gate L8",
+              terminal: "KLIA2 T2",
               gate: "L8",
-              statusEN: "On Time",
-              statusZH: "准点"
+              statusEN: "Scheduled / Trackable",
+              statusZH: "准备就绪 / 准点"
             },
-            shoppingEN: "Duty-free shop checks or minor retail options inside the boarding area.",
-            shoppingZH: "登机长廊内设有部分免税彩妆与便携数码配件精品店。",
-            foodEN: "Inflight drinks or a quick standard snack combo.",
-            foodZH: "建议在机上享用轻便饮品，安心休息为后续转机保存充沛体力。"
+            shoppingEN: "Perfect time to browse regional inflight catalog deals.",
+            shoppingZH: "可在机上翻阅最新的免税零售商品目录预购伴手礼。",
+            foodEN: "Complimentary light snack boxes and mineral water options.",
+            foodZH: "机上将供应轻便冷餐盒与清凉饮品，建议闭眼小憩放松。"
           }
         ]
       },
@@ -123,181 +126,301 @@
           {
             type: "transit",
             time: "00:05",
-            titleEN: "Arrival at Singapore Changi Airport (Transit Hub)",
-            titleZH: "抵达新加坡樟宜机场（中转等待区）",
-            durationEN: "⏱️ Layover Duration: Approx 2h 10m",
-            durationZH: "⏱️ 机场内停留转机：约 2 小时 10 分钟",
-            shoppingEN: "Browse world-class duty-free cosmetics, premium merchandise, and souvenir items.",
-            shoppingZH: "樟宜机场免税店品类齐备，可顺手捎带高档美妆伴手礼或旅行纪念品。",
-            foodEN: "Late-night refreshments at 24h counters; premium laksa broth bowl options.",
-            foodZH: "可在24小时营业区来一碗热乎乎的星洲叻沙或咖椰吐司夜宵。"
+            titleEN: "Midnight Arrival at Singapore Changi Airport",
+            titleZH: "深夜降落新加坡樟宜机场 (国际中转站)",
+            durationEN: "⏱️ Layover Interval: 2h 10m Flight Connection",
+            durationZH: "⏱️ 中转等待时间：约 2 小时 10 分钟",
+            shoppingEN: "Explore the futuristic world-class Jewel airport luxury duty-free skincare boutiques.",
+            shoppingZH: "樟宜机场免税商圈深夜持续营业，可抢先入手高品质大牌药妆或护肤品特惠套组。",
+            foodEN: "Enjoy a warm bowl of Singaporean premium Pepper Bak Kut Teh or hot laksa at 24h dynamic stalls.",
+            foodZH: "夜宵圣地！极力推荐去24小时美食区来一碗香浓火辣的星洲叻沙或胡椒白汤肉骨茶。"
           },
           {
             type: "flight",
             time: "02:15",
-            titleEN: "International Flight: Singapore to Okinawa Naha (OKA)",
-            titleZH: "飞往日本冲绳那霸机场 (OKA)",
-            durationEN: "⏱️ Overnight Flying Duration: 6h 20m",
-            durationZH: "⏱️ 跨夜飞行时间：约 6 小时 20 分钟",
+            titleEN: "International Flying Journey: Singapore to Okinawa",
+            titleZH: "红眼国际航段：新加坡直飞日本冲绳那霸 (OKA)",
+            durationEN: "⏱️ Direct Overnight Flight: 6h 20m",
+            durationZH: "⏱️ 跨夜航程：约 6 小时 20 分钟",
             isFlight: true,
             flightDetails: {
-              carrier: "Okinawa Direct Line",
+              carrier: "Okinawa Express Direct",
               depTime: "02:15",
-              terminal: "Changi T2",
+              terminal: "Changi T2 Hub",
               gate: "F34",
-              statusEN: "Boarding",
-              statusZH: "正在登机"
+              statusEN: "On Time / Gate Open",
+              statusZH: "准点 / 开放登机"
             },
-            shoppingEN: "Request customized duty-free shopping bags before deep sleep.",
-            shoppingZH: "建议在机上安稳补眠休息，为落地冲绳的第一天行程养精蓄锐。",
-            foodEN: "Pre-ordered hot breakfast served mid-flight before sunrise.",
-            foodZH: "降落前机上将供应一份热气腾腾的日式或西式暖胃早点。"
+            shoppingEN: "Rest well on board for an energetic island exploration upon touchdown.",
+            shoppingZH: "建议在舒适宽敞的机舱内闭眼沉睡，为即将展开的冲绳大探险充沛电力！",
+            foodEN: "Warm premium morning omelet or Japanese style dynamic breakfast served before landing.",
+            foodZH: "降落前一小时机舱将自动唤醒，为您呈上一份热腾腾的香肠煎蛋卷晨间早餐。"
           },
           {
             type: "activity",
             time: "10:05",
-            titleEN: "Land in Okinawa & Meet Private Driver for Car Rental",
-            titleZH: "降落冲绳那霸 & 专属包车直达 ZH Car Rental 取车",
-            durationEN: "⏱️ Travel Time: 30 mins smooth drop to depot",
-            durationZH: "⏱️ 预计车程：包车直达取车行约 30 分钟，行李全数安置在尾箱",
-            shoppingEN: "Pick up local road maps, driving guidance manuals, and localized phone clips.",
-            shoppingZH: "可在店里领取冲绳自驾游中文离线全彩地图与行车注意事项手册。",
-            foodEN: "Walk nearby for a classic Okinawan breakfast bowl or savory local onigiri.",
-            foodZH: "推荐享用经典的冲绳猪肉蛋饭团，咸香适口，全家大小都超级爱吃！"
+            titleEN: "Touchdown in Okinawa & Private Van to ZH Car Rental",
+            titleZH: "圆满落地冲绳那霸机场 & 专属接驳车直达 ZH Car Rental 店铺取车",
+            durationEN: "⏱️ Drive Duration: 30 mins swift shuttle drop",
+            durationZH: "⏱️ 车程：舒适专车接送至车行约 30 分钟，重型行李早已稳妥码放于尾箱",
+            shoppingEN: "Pick up local physical road safety maps, multi-language guide maps, and card adapters.",
+            shoppingZH: "在租车行办妥手续时，可顺带免费领取最新的全彩冲绳自驾行车秘籍指南手册。",
+            foodEN: "Instantly buy localized Spam & Fried Egg Rice Balls (Pork Tamago Onigiri) at the airport lobby.",
+            foodZH: "落地第一口美味！必须在航站楼国内线大厅买几个风靡全网、热乎爆汁的「冲绳猪肉蛋饭团」垫垫饥！"
           },
           {
             type: "activity",
             time: "11:00",
-            titleEN: "Early Lunch: 旅の終わりの朝ごはん",
-            titleZH: "地道美食：旅の終わりの朝ごはん 古风餐室",
-            durationEN: "⏱️ Drive Duration: 20 mins smooth travel",
-            durationZH: "⏱️ 预计车程：行驶约 20 分钟",
-            shoppingEN: "Pick up unique packaged artisanal condiments and local recipe sheets.",
-            shoppingZH: "餐馆附近有售卖手作调味酱汁或精美的小木雕摆件。",
-            foodEN: "Savor comforting hot soups, traditional set meals, and premium melt-in-mouth slow cooked pork belly.",
-            foodZH: "强烈推荐品尝招牌日式朝食套餐，配上特制秘汤与嫩滑多汁的黑猪肉，大饱口福！"
+            titleEN: "Traditional Lunch: 旅の終わりの朝ごはん 古风食肆",
+            titleZH: "元气午餐：旅の終わりの朝ごはん 极品冲绳老屋餐厅",
+            durationEN: "⏱️ Drive Duration: 20 mins scenic road cruising",
+            durationZH: "⏱️ 车程：开启自驾模式，平稳驱车约 20 分钟",
+            shoppingEN: "Snag handmade clay seasoning containers or organic farm products.",
+            shoppingZH: "餐厅角落展示并出售当地农家手工酿造的特色调味果醋与传统土陶挂件。",
+            foodEN: "Savor premium, melting tender slow-cooked pork belly soup sets and hot multi-grain rice.",
+            foodZH: "极力推荐享用极具琉球传统的家常套餐，酱油慢火卤制黑猪肉入口即化，汤头鲜美回甘！"
           },
           {
             type: "activity",
             time: "12:40",
-            titleEN: "Ryukyu Glass Village Exploration",
-            titleZH: "琉球玻璃村 · 梦幻艺术手作彩绘体验",
-            durationEN: "⏱️ Drive Duration: 30 mins scenic highway cruise",
-            durationZH: "⏱️ 预计车程：开往南部玻璃村约 30 分钟",
-            shoppingEN: "Buy stunning handmade rainbow glass cups, delicate flower vases, and aesthetic Shisa statuettes.",
-            shoppingZH: "必买馆内工匠亲手吹制的彩色独创玻璃杯、风铃，以及流光溢彩的招福狮玻璃工艺品。",
-            foodEN: "Cool down with sparkling icy fruit sodas or fresh milk ice cream at the village cafe corner.",
-            foodZH: "推荐在园区玻璃工艺茶歇角享用一份冰凉沁心的盐味软冰淇淋或特色热带果汁。"
+            titleEN: "Ryukyu Glass Village • Colorful Creative Art Studio",
+            titleZH: "琉球玻璃村 · 梦幻流光彩绘工艺手工工坊",
+            durationEN: "⏱️ Travel Duration: 30 mins south-bound driving",
+            durationZH: "⏱️ 车程：南部自驾观航线行驶约 30 分钟",
+            shoppingEN: "Must buy custom rainbow-blown glass tumblers, delicate hanging windchimes, and colorful glass Shisa lion figurines.",
+            shoppingZH: "极致必买：全由顶级工匠亲手吹制的波光炫彩玻璃杯、梦幻风铃，以及流光溢彩的玻璃招福狮摆件。",
+            foodEN: "Chill out with sparkling cold tropical fruit dynamically mixed soda or icy salt vanilla ice cream cones.",
+            foodZH: "推荐在村内冷气十足的工艺茶座点一杯冰镇芒果苏打泡泡，或来一支海盐香草软冰淇淋。"
           },
           {
             type: "activity",
             time: "15:00",
-            titleEN: "Ashibinaa Okinawa Outlet Shopping Spree",
-            titleZH: "Ashibinaa 冲绳奥特莱斯购物中心 · 大牌疯狂扫货",
-            durationEN: "⏱️ Drive Duration: 15 mins close proximity transfer",
-            durationZH: "⏱️ 预计车程：开往奥特莱斯约 15 分钟",
-            shoppingEN: "Massive savings on global fashion, localized luxury items, sport shoes, and kids collectibles.",
-            shoppingZH: "绝对是运动大牌（Adidas/Nike）、国际服饰、轻奢皮包及童装的终极血拼天堂！",
-            foodEN: "Feast on flame-grilled Wagyu or premium thick juicy beef cutlet sets at the central food courtyard.",
-            foodZH: "家人们超爱的牛肉来啦！推荐在商圈美食街点一份滋滋作响的高级铁板炙烧牛肉定食！"
+            titleEN: "Ashibinaa Okinawa Large Premium Outlets Shopping spree",
+            titleZH: "Ashibinaa 冲绳奥特莱斯购物城 · 大牌全员狂扫疯狂血拼",
+            durationEN: "⏱️ Travel Duration: 15 mins highway dash",
+            durationZH: "⏱️ 车程：极速行驶 15 分钟即达，专属停车场极其便利",
+            shoppingEN: "Massive tax-free retail discount deals on Nike, Adidas, Coach, luxury goods, and premium children clothes.",
+            shoppingZH: "狂暴扫货：这里是海岛服饰、国际轻奢、运动名牌（如阿迪/耐克）以及高端童装的免税折扣天堂！",
+            foodEN: "Feast on flame-torched high-grade Wagyu or thick juicy beef cutlet sizzling bowls at the central food court.",
+            foodZH: "大肆吃肉：推荐在美食大厅点一份铁板炙烧黑毛和牛排牛肋条，浓郁酱汁在铁板上滋滋作响！"
           },
           {
             type: "activity",
-            time: "17:40",
-            titleEN: "San-A Parco City Coastal Mega Mall",
-            titleZH: "浦添 Parco City 海滨大型购物广场",
-            durationEN: "⏱️ Drive Duration: 33 mins seaside highway drive",
-            durationZH: "⏱️ 预计车程：沿海公路行驶约 33 分钟",
-            shoppingEN: "Explore extensive lifestyle goods, Japanese drugstores (matsukiyo), cosmetics, and gifts.",
-            shoppingZH: "重点推荐横扫超大药妆店、流行潮牌服饰、手信铺、以及杂货控最爱的多样特色小铺。",
-            foodEN: "Try local Okinawan Taco Rice combos or a bowl of premium beef rib hot noodles.",
-            foodZH: "晚餐选择丰富，极力推荐汤头浓郁香醇的极品和牛排骨拉面或特色芝士辣牛塔可饭。"
+            time: "17:15",
+            titleEN: "Senagajima Umikaji Terrace Umisora Coastal Boardwalk",
+            titleZH: "濑长岛小希腊 (Umikaji Terrace) · 浪漫绝美纯白海滨阶梯漫步",
+            durationEN: "⏱️ Drive Duration: 10 mins close coastal cruise",
+            durationZH: "⏱️ 车程：沿跨海长堤行驶 10 分钟即达",
+            shoppingEN: "Look out for artisanal organic sea salt soaps and beach fashion lifestyle accessories.",
+            shoppingZH: "可在阶梯商铺中挑选极具地中海风格的小风车挂件、纯手工天然海盐护肤皂及遮阳帽。",
+            foodEN: "Indulge in the legendary ultra-fluffy 'Happy Pancake' (幸福鬆餅) or ice cold regional beers with airplane landing view.",
+            foodZH: "极致下午茶：必吃火爆全网、松软细腻入口即化的「幸福松饼」！坐看飞机在湛蓝海面低空掠过掠降落！"
           },
           {
             type: "activity",
-            time: "19:15",
-            titleEN: "Gourmet Dinner: Yakiniku Ryukyunoushi Chatan",
-            titleZH: "顶级大餐：琉球之牛北谷店 (已预订19:45席位)",
-            durationEN: "⏱️ Drive Duration: 25 mins back to central Chatan",
-            durationZH: "⏱️ 预计车程：开往北谷町约 25 分钟",
-            shoppingEN: "Snag premium charcoal grill seasoning salts and souvenir recipe post-cards.",
-            shoppingZH: "可购买餐厅秘制的精品烤肉盐礼盒、香辣沾酱，回家也能复刻美味。",
-            foodEN: "CRITICAL MEAL: World-class premium Okinawan black WAGYU beef slices that melt instantly on your tongue!",
-            foodZH: "重磅牛肉暴击！尽情纵享全日本顶尖、入口即化且雪花分布极度完美的「琉球之牛顶级黑毛和牛烧肉」！"
+            time: "19:25",
+            titleEN: "Gourmet Dinner Feast: Yakiniku Ryukyunoushi Chatan",
+            titleZH: "重磅大餐：琉球之牛烧肉北谷店 (已尊贵预订 19:45 黄金席位)",
+            durationEN: "⏱️ Travel Duration: 40 mins north highway cruise straight to Chatan",
+            durationZH: "⏱️ 车程：由南向北行驶约 40 分钟直接靠泊餐厅，大件行李放箱无忧",
+            shoppingEN: "Purchase premium jars of charcoal barbecue recipe grill salts and house-blended chili oil paste.",
+            shoppingZH: "店头有售卖餐厅专用的极品黑松露烧肉蘸盐礼盒，送礼自用极度彰显品位。",
+            foodEN: "CRITICAL BEEF MEAL: Mind-blowing premium Okinawan black WAGYU beef selection that completely melts on your tongue like butter!",
+            foodZH: "舌尖极致震撼！尽情纵享大名鼎鼎、雪花纹理完美到令人窒息、入口即化的「琉球之牛顶级黑毛和牛烧肉盛宴」！"
           },
           {
             type: "activity",
             time: "21:30",
-            titleEN: "Hotel Check-in & American Village Nightlights",
-            titleZH: "入住北谷町核心酒店 & 美国村浪漫霓虹街夜景",
-            durationEN: "⏱️ Short transfer: 4 mins drive or 16 mins breezy walk",
-            durationZH: "⏱️ 交通：驱车仅 4 分钟（或全家惬意散步 16 分钟即可返回舒适客房）",
-            shoppingEN: "Pick up late-night convenience store snacks, local fresh milk, and limited fruit beers at Lawson.",
-            shoppingZH: "可在楼下全家或Lawson便利店抢购冲绳限定泡盛酒、黑糖冰棒及高品质鲜牛奶。",
-            foodEN: "Late night juicy beef skewers, Blue Seal ice cream scoops, or hot crispy onion rings.",
-            foodZH: "夜宵可以再来一份香气诱人的炙烤牛肉串串，配上一杯爽口冰镇汽水。"
+            titleEN: "Hotel Check-in & American Village Neon Nightlights walk",
+            titleZH: "办理酒店入住 & 沉浸式夜游美国村摩天轮霓虹街景",
+            durationEN: "⏱️ Travel: 4 mins quick drive or 16 mins breezy sea walk",
+            durationZH: "⏱️ 交通：驱车 4 分钟即达客房（或在微凉夜风中全家惬意步行 16 分钟）",
+            shoppingEN: "Hit Lawson or FamilyMart for premium late-night snacks, rich Hokkaido fresh milk, and local Orion draft beers.",
+            shoppingZH: "可在楼下便利店抢购冲绳限定的Orion精酿生啤酒、香甜黑糖冰棒以及高品质纯鲜牛奶。",
+            foodEN: "Late-night hot juicy beef skewers, crispy golden onion rings, or cold Blue Seal ice cream scoops.",
+            foodZH: "夜宵时间还可在街角小酒馆捎上几条现烤的碳火牛肋条串，配上冰镇果汁超级过瘾。"
           }
         ]
       },
       {
         date: "28 May 2026",
-        labelEN: "28 May (Joint)",
-        labelZH: "5月28日 (合体游)",
+        labelEN: "28 May",
+        labelZH: "5月28日",
         timeline: [
           {
             type: "activity",
-            time: "09:30",
-            titleEN: "Okinawa Churaumi Aquarium Exploration",
-            titleZH: "美丽海水族馆惊艳探秘 (两队合体游玩)",
-            durationEN: "⏱️ Chartered Vehicle Travel: 1h 15m from Chatan",
-            durationZH: "⏱️ 包车车程：自北谷町出发约 1 小时 15 分钟",
-            shoppingEN: "Grab iconic Whale Shark plushies, ocean-themed marine keychains, and exquisite capsule toys.",
-            shoppingZH: "必买馆内限定的呆萌鲸鲨玩偶、海洋风情精致钥匙扣以及充满惊喜的扭蛋纪念品。",
-            foodEN: "Enjoy Okinawan slow-cooked Braised Pork Belly Rafute or savory Beef Taco Rice with premium views by Kuroshio Sea.",
-            foodZH: "可在黑潮之海大水槽旁的咖啡厅享用特色冲绳塔可饭 (Taco Rice) 或经典秘制冲绳黑猪肉卤肉饭。"
+            time: "07:30",
+            titleEN: "Morning Wake Up & Island Fuel Breakfast",
+            titleZH: "清晨唤醒 & 出发享用元气特色早餐",
+            durationEN: "⏱️ Easy Transport: 6 mins local drive",
+            durationZH: "⏱️ 车程：行驶 6 分钟，开启精彩的中北部探索之旅",
+            shoppingEN: "Pack premium high-protection sunscreens and portable battery powerpacks for a long day out.",
+            shoppingZH: "记得随身带好高倍防晒霜、遮阳伞与充足的相机备用电池。",
+            foodEN: "Must try warm comforting local Pork Tamago breakfast rice bowls loaded with spam and egg flavors.",
+            foodZH: "早餐推荐：品尝冲绳当地极具人气、香气四溢的现做厚煎猪肉蛋饭团套餐。"
+          },
+          {
+            type: "activity",
+            time: "10:00",
+            titleEN: "Okinawa Churaumi Aquarium 🐋 (Ocean Kingdom World Tour)",
+            titleZH: "冲绳美丽海水族馆 🐋 · 惊艳探索梦幻黑潮之海大水槽",
+            durationEN: "⏱️ Distance Highway Ride: 1h 45m straight driving to Motobu",
+            durationZH: "⏱️ 车程：由中向北自驾平稳前行 1 小时 45 分钟，全室内空调长辈最舒适",
+            shoppingEN: "Massive official souvenir haul: Adorable whale shark plush pillows, marine theme accessories, and beautiful capsule toy machine sets.",
+            shoppingZH: "全员扫货：必买官方授权的超萌巨型鲸鲨毛绒玩偶、海洋风精美挂件、以及极具收藏价值的限定扭蛋。",
+            foodEN: "Dine at the premium Kuroshio sea tank view cafe; enjoy savory Beef Taco Rice bowls and melting slow-cooked pork belly noodles.",
+            foodZH: "视觉盛宴：极力推荐在巨大的水族大尾槽旁咖啡厅坐下，边看鲸鲨游弋边享用特色和牛塔可饭 (Taco Rice) 或排骨面。"
           },
           {
             type: "activity",
             time: "14:00",
-            titleEN: "Kouri Ocean Tower Panoramic Views",
-            titleZH: "古宇利海洋塔观景台俯瞰 (两队合体游玩)",
-            durationEN: "⏱️ Drive Time: 35 mins from Churaumi Aquarium",
-            durationZH: "⏱️ 车程：从水族馆出发约 35 分钟",
-            shoppingEN: "Buy premium Kouri Island Pumpkin Manju pastries and natural brown sugar delicacies.",
-            shoppingZH: "必买古宇利岛限定的香甜南瓜馒头、浓烟南瓜洋果子以及天然纯正的冲绳黑糖制品。",
-            foodEN: "Savor garlic-infused grilled shrimp plates or premium Wagyu dynamic burgers overlooking the emerald bridge.",
-            foodZH: "极力推荐享用著名的古宇利古早风味大蒜虾拼盘，或面向绝美果冻海品尝多汁的和牛汉堡。"
+            titleEN: "Kouri Island Crossing & Stunning Tiffany Blue Ocean Bridge",
+            titleZH: "浪漫古宇利岛 🌉 · 跨越碧海大桥 & 打卡治愈系心形礁石 (Heart Rock)",
+            durationEN: "⏱️ Drive Duration: 40 mins coastal scenic cruising from Aquarium",
+            durationZH: "⏱️ 车程：行驶约 40 分钟，车窗外全是果冻色顶级玻璃海",
+            shoppingEN: "Buy signature premium Kouri Island pumpkin sweet manju tarts and artisanal black sugar products.",
+            shoppingZH: "特产必买：古宇利岛特产的浓郁香甜南瓜馒头糕点、海岛印花T恤以及天然纯手工黑糖礼盒。",
+            foodEN: "Feast on the world-famous Kouri Garlic Shrimp plate (虾虾饭) or juicy Wagyu beef gourmet beach burgers alongside Oppa ice cream hooks.",
+            foodZH: "网红美食：必须疯狂打卡大名鼎鼎、蒜香浓郁爆汁的「古宇利古早味大蒜虾拼盘」，或者来一份爆汁和牛海滩汉堡！"
+          },
+          {
+            type: "activity",
+            time: "16:00",
+            titleEN: "Cape Manzamo Iconic Elephant Rock Cliff Photostop",
+            titleZH: "万座毛风景区 · 观赏壮丽象鼻海蚀崖 & 全新冷气室内观景中心休息",
+            durationEN: "⏱️ Drive Duration: 45 mins smooth drive from Kouri bridge",
+            durationZH: "⏱️ 车程：顺路南下自驾约 45 分钟即达，无障碍步道极其平坦好走",
+            shoppingEN: "Browse localized Ryukyu textile custom crafts and local marine windchimes at the sleek indoor mall.",
+            shoppingZH: "可在全新落成的现代游客中心内选购精致的琉球印染织物手工包、海盐润喉糖或精美海浪工艺品。",
+            foodEN: "Rehydrate with premium cold Japanese sugar-free green teas or rich soft-serve mango dairy tubs.",
+            foodZH: "消暑茶歇：推荐在冷气充足的室内大厅买一杯冰镇宇治抹茶，或来一根冰凉解渴的冲绳柑橘雪糕。"
+          },
+          {
+            type: "activity",
+            time: "17:30",
+            titleEN: "AEON Mall Okinawa Rycom Mega Complex Super Shopping Grand Prix",
+            titleZH: "永旺梦乐城 AEON Mall Rycom · 冲绳最大超级超级超级商圈一站式大狂欢",
+            durationEN: "⏱️ Drive Duration: 40 mins back from Manzomo straight to complex",
+            durationZH: "⏱️ 车程：行驶约 40 分钟，商场内部极其宽敞，可在大门为长辈无缝领取免费手推购物车",
+            shoppingEN: "Ultimate shopping spree: Tax-free cosmetic lines, multi-tier drugstores, clothing brands, home items, and massive souvenir boxes.",
+            shoppingZH: "疯狂扫货：药妆店、零食手信铺、生活杂货、流行时装全覆盖，大包小包买完直接塞进车尾箱！",
+            foodEN: "Enjoy a premium dinner inside: Try local hot savory Sushiro plates, hot beef shabu-shabu, or sizzling wagyu stone grills.",
+            foodZH: "晚餐大饱口福：商圈内拥有极丰富的选择，极力推荐大排长龙的超人气寿司郎（Sushiro）海鲜刺身或热气腾腾的黑毛和牛寿喜烧！"
+          },
+          {
+            type: "activity",
+            time: "20:30",
+            titleEN: "Breezy Night Drive Return to Chatan Comfort Resort",
+            titleZH: "夜幕降临 · 满足驱车 15 分钟返回北谷町海景酒店休息",
+            durationEN: "⏱️ Short Drive: 15 mins close transit",
+            durationZH: "⏱️ 车程：仅 15 分钟即可直达酒店正门，全员轻松卸载今日全部战利品",
+            shoppingEN: "Perfect time to sort out shopping invoices for smooth tax refunds later.",
+            shoppingZH: "回房舒舒服服清点战利品，把免税商品封口袋整齐码放妥当。",
+            foodEN: "Late night sweet treats: hot premium milk teas or late-night light convenience snacks.",
+            foodZH: "夜宵建议开一罐冰镇冲绳限定水果起泡酒，配上香脆的鱿鱼丝，回味充实好玩的一天。"
           }
         ]
       },
       {
         date: "29 May 2026",
-        labelEN: "29 May (Joint)",
-        labelZH: "5月29日 (合体游)",
+        labelEN: "29 May",
+        labelZH: "5月29日",
         timeline: [
           {
             type: "activity",
-            time: "10:00",
-            titleEN: "Traditional Ryuso Costume Experience & Photoshoot",
-            titleZH: "冲绳传统琉装华服体验与街头美拍 (两队合体游玩)",
-            durationEN: "⏱️ Seamless charter pickup; all heavy belongings left in the vehicle boot.",
-            durationZH: "⏱️ 专属包车准时接送；随身大件行李及衣物可直接存放在车尾箱，轻装上阵。",
-            shoppingEN: "Purchase traditional textile hair accessories, exquisite fans, or handmade fabric pouches.",
-            shoppingZH: "适合选购极具琉球风情的传统染织发饰、精美工艺折扇或纯手工制作的布艺小零钱包。",
-            foodEN: "Relish standard Okinawan Soba Noodles topped with melting tender pork ribs or high-grade grilled beef sets.",
-            foodZH: "推荐品尝最地道的冲绳排骨面 (Soba)，汤头清甜，排骨软烂入味；亦可选择碳火烤牛排套餐。"
+            time: "08:00",
+            titleEN: "Depart Chatan Resort & Head South to Cultural Capital Naha",
+            titleZH: "清晨退房上车 · 自驾南下前往历史文化名城那霸市区",
+            durationEN: "⏱️ Drive Duration: Approx 40 mins smooth morning cruising",
+            durationZH: "⏱️ 车程：沿平稳公路南下行驶约 40 分钟，司机随车照顾大件行李",
+            shoppingEN: "Pick up local parking coin change and secure small hand towels for traditional shrines.",
+            shoppingZH: "准备好用于祈福的手帕以及自驾路桥所需的零钱硬币。",
+            foodEN: "Grab dynamic rich breakfast coffees or flaky warm croissants for the road trip.",
+            foodZH: "可以带上几盒鲜牛奶或热拿铁，边开车边饱览窗外开阔的岛屿风光。"
           },
           {
             type: "activity",
-            time: "15:00",
-            titleEN: "American Village Seaside Boardwalk & Sunset Shopping",
-            titleZH: "美国村海滨漫步 & 绝美落日夕阳购物 (两队合体游玩)",
-            durationEN: "⏱️ Drive Time: 15 mins transfer from photo venue",
-            durationZH: "⏱️ 车程：摄影场地结束回程约 15 分钟",
-            shoppingEN: "Shop for vintage Americana shirts, regional Shisa Lion statues, and limited-run Okinawan salt snacks.",
-            shoppingZH: "必淘美式复古潮服、冲绳标志性招福狮 (Shisa) 精致摆件，以及雪盐限定系列伴手礼。",
-            foodEN: "Indulge in premium blue-seal ice cream, Okinawa beef teppanyaki, or juicy coastal gourmet cheeseburgers.",
-            foodZH: "甜点时间必吃 Blue Seal 冲绳限定盐味冰淇淋；晚餐推荐海滨海鲜大餐或现场铁板烧冲绳牛肉。"
+            time: "10:00",
+            titleEN: "Traditional Ryukyu Costume Experience at Chura Bijin",
+            titleZH: "美丽佳人 (Chura Bijin) · 换上精美华丽冲绳传统琉装华服大美拍",
+            durationEN: "⏱️ Convenient Arrival: Secure parking spaces located directly adjacent to venue",
+            durationZH: "⏱️ 交通：摄影店门前即有便利立体停车场，全家空手入店换装最轻松",
+            shoppingEN: "Purchase custom Ryukyu handmade textile hair pin bars, folding fans, and colorful woven pouches.",
+            shoppingZH: "值得入手极具纪念意义的传统染织工艺发饰、复古纸扇、以及纯手工缝制的和风小零钱包。",
+            foodEN: "Enjoy small local traditional sweet brown sugar jelly drops offered by the hospitable studio masters.",
+            foodZH: "换装时可品尝店家贴心提供的冲绳古法手工黑糖硬糖，清甜润喉。"
+          },
+          {
+            type: "activity",
+            time: "11:00",
+            titleEN: "Sacred Naminoue Shrine Exploration & Sea Cliff Photostop",
+            titleZH: "波上宫神圣朝圣 · 驻足悬崖绝壁古老神社祈福观海",
+            durationEN: "⏱️ Proximity Transfer: 10 mins short city drive",
+            durationZH: "⏱️ 车程：市区自驾行驶约 10 分钟即达，步行路段极其平缓",
+            shoppingEN: "Highly popular buy: Unique ocean wave protection amulets (御守) and wooden text boards (绘马) for family blessings.",
+            shoppingZH: "神社必买：全日本独一无二、极为抢手的刺绣「波上宫限定海浪交通安全御守」与学业健康祈福绘马。",
+            foodEN: "Cool down with cold mineral water or regional sweet canned red bean drinks from modern vending stalls.",
+            foodZH: "参拜完毕后可以在树荫底下的自动贩卖机来一瓶冰镇大麦茶或红豆奶解渴。"
+          },
+          {
+            type: "activity",
+            time: "13:30",
+            titleEN: "Stroll Down Historic Kokusai Dori (International Street) Souvenir Bazaar",
+            titleZH: "纵情夜游国际通核心大街 · 开启地毯式手信大扫货",
+            durationEN: "⏱️ Short Urban Transit: 15 mins smooth inner city drive",
+            durationZH: "⏱️ 车程：行驶约 15 分钟，街道两旁布满了缤纷炫目的零售精品店铺",
+            shoppingEN: "Massive gift haul: Regional Shisa lion statues, Calbee purple potato chips, and customized anime trinkets.",
+            shoppingZH: "特产圣地：狂淘卡通联名小挂件、冲绳狮子创意陶艺摆件、以及一箱箱包装精美的黑糖糕点伴手礼。",
+            foodEN: "Enjoy snacks along the way: Try hot golden sweet potato pies or sizzling dynamic street steaks.",
+            foodZH: "沿街一路吃：必尝现烤出炉酥脆烫口的御菓子御殿红薯挞，或者来一小碗爆汁香浓的骰子牛肉块。"
+          },
+          {
+            type: "activity",
+            time: "14:30",
+            titleEN: "Gourmet Lunch Extravaganza at Makishi Public Market Terminal",
+            titleZH: "饕餮巨献：第一牧志公设市场 · 挑选海鲜大餐与顶级和牛刺身",
+            durationEN: "⏱️ Walk Distance: 3 mins walk directly from Kokusai center street",
+            durationZH: "⏱️ 交通：从国际通主街步行3分钟即达，两层楼全室内冷气大市场",
+            shoppingEN: "Snag premium dried premium abalone strings, localized hot chili pepper oils, and kelp bundles.",
+            shoppingZH: "可在这里带上几瓶冲绳爆火、香辣过瘾的「泡盛古酒渍岛辣椒油」或极品深海昆布干货。",
+            foodEN: "CRITICAL LUNCH: Pick giant fresh lobsters downstairs and cook upstairs! Feast on thick juicy high grade marbled Wagyu dynamic teppanyaki cuts!",
+            foodZH: "海鲜与牛肉狂欢：在一楼亲自挑选巨大的深海龙虾、夜光蝾螺直奔二楼现做！更要大口享受炭火炙烧、雪花密布的顶级高档日本和牛烤肉排，鲜美到舌头颤抖！"
+          },
+          {
+            type: "activity",
+            time: "16:00",
+            titleEN: "DFS T Galleria Okinawa Premium Luxury Shopping Call",
+            titleZH: "DFS 旗下冲绳 T 广场 · 环球免税奢侈品与美妆名包终极大巡礼 (若时间充裕)",
+            durationEN: "⏱️ Drive Duration: 12 mins swift urban cruise",
+            durationZH: "⏱️ 车程：市区自驾前往约 12 分钟，超大室内免税商圈",
+            shoppingEN: "Incredible tax-free rates on high-end perfume lines, luxury handbags, premium watches, and limited designer fashion cosmetics.",
+            shoppingZH: "奢品天堂：这里是世界顶奢箱包、高档瑞士名表、以及大牌免税美妆限定礼盒的集中营！",
+            foodEN: "Sip on signature premium gourmet iced Americanos or artisanal Godiva chocolate freezes inside the gallery cafe.",
+            foodZH: "奢华茶歇：可在商场咖啡厅惬意来一杯冰镇意式浓缩，或者品尝香浓顺滑的歌帝梵巧克力冰沙。"
+          },
+          {
+            type: "activity",
+            time: "18:30",
+            titleEN: "Refuel Private Vehicle & Smooth Return to Bee Rent Chatan Depot",
+            titleZH: "自驾行程收官 ---- 油箱加满顺畅返回 Bee Rent 北谷店还车",
+            durationEN: "⏱️ Return Logistics: 40 mins cruise back north to Chatan base",
+            durationZH: "⏱️ 车程：沿主干道北上行驶 40 分钟到店还车，必须要提前于 18:30/19:00 前顺利办妥归还手续",
+            shoppingEN: "Confirm all bags are retrieved from the vehicle seat pockets and trunk.",
+            shoppingZH: "下车前务必仔细检查车门储物格和宽大的后备箱，确保没有任何一件战利品遗漏。",
+            foodEN: "Grab refreshing fruit sodas from depot cooling dynamic stations.",
+            foodZH: "还车后全家顿感轻松，喝一口冰镇果汁汽水，步行前往海滨餐厅。"
+          },
+          {
+            type: "activity",
+            time: "19:00",
+            titleEN: "Farewell Gourmet Dinner at American Village Coastal Boardwalk",
+            titleZH: "浪漫告别晚宴：相聚美国村海滨落日景观餐厅",
+            durationEN: "⏱️ Walk Distance: Short 5 mins breezy seaside stroll to dining table",
+            durationZH: "⏱️ 交通：步行 5 分钟即达，面向绝美的冲绳浪漫日落晚霞海景",
+            shoppingEN: "Snag glow-in-the-dark beach necklaces or retro island souvenirs from coastal street artists.",
+            shoppingZH: "可以顺手在海滨长廊的文创市集买几件充满艺术气息的手作荧光海滩贝壳项链。",
+            foodEN: "CRITICAL DINNER FEAST: Indulge in sizzling thick beef steaks, premium fresh seafood platters, or warm comforting ramen noodles at Sushiro!",
+            foodZH: "饕餮海岛夜：在这个绝美落日夜，痛快大吃一顿香气扑鼻的碳烤美式厚牛排、超级海鲜拼盘，或者前往超人气的寿司郎/拉面店大快朵颐！"
           }
         ]
       },
@@ -382,7 +505,7 @@
             durationZH: "⏱️ 交通：清晨 06:10 打车 12 分钟速达那霸机场，开启国际航段",
             isFlight: true,
             flightDetails: {
-              carrier: "Cross-Strait Air",
+              carrier: "Cross-Strait Air Connect",
               depTime: "08:10",
               terminal: "Naha Int'l L2",
               gate: "43",
@@ -440,7 +563,7 @@
             shoppingEN: "Pick up quirky cell phone charms, cheap trendy accessories, and retro local games items.",
             shoppingZH: "夜市路边摊挂满了千奇百怪的潮流手机壳、创意情侣饰品与伴手礼小玩意儿。",
             foodEN: "Must devour legendary local stinky tofu, crispy sesame oil chicken soup, and flame-grilled black pepper beef cubes!",
-            foodZH: "暴走夜市：必点香脆多汁的現炸臭豆腐、麻油鸡，以及在大火中熊熊炙烧、外焦里嫩的火焰骰子和牛！"
+            foodZH: "输入牛肉狂欢：必点香脆多汁的現炸臭豆腐、麻油鸡，以及在大火中熊熊炙烧、外焦里嫩的火焰骰子和牛！"
           }
         ]
       },
@@ -537,12 +660,12 @@
             durationZH: "⏱️ 车程：舒适大包车一路平稳高速直达，所有沉重行李和手信整齐码在后备箱，全程不劳累",
             isFlight: true,
             flightDetails: {
-              carrier: "Transit Int'l Connect via HKG",
+              carrier: "Transit Connect via HKG Hub",
               depTime: "16:30",
               terminal: "Taoyuan T1 Hall 3",
-              gate: "A7",
-              statusEN: "Gate Open / Scheduled",
-              statusZH: "准点 / 准备登机"
+              gate: "A9",
+              statusEN: "On Time / Gate Open",
+              statusZH: "准点 / 开放登机"
             },
             shoppingEN: "Final duty free premium purchase of Kavalan single malt Taiwanese whisky and high mountain tea bricks.",
             shoppingZH: "机场免税店终极冲刺：必买世界冠军「台湾噶玛兰 (Kavalan) 单一麦芽威士忌」与高档阿里山冷泡茶叶。",
@@ -555,7 +678,7 @@
 
     const uiDictionary = {
       EN: {
-        appTitle: "Friend's Family Travel App Dashboard",
+        appTitle: "Taiwan Okinawa Trip",
         weatherTitle: "Live Weather Updates",
         cityOkinawa: "Okinawa (冲绳)",
         cityTaipei: "Taipei (台北)",
@@ -569,7 +692,7 @@
         status: "Live Status"
       },
       ZH: {
-        appTitle: "闺蜜家族旅行专属随身仪表盘",
+        appTitle: "台湾冲绳欢聚仪表盘",
         weatherTitle: "实况天气同步更新",
         cityOkinawa: "日本冲绳那霸",
         cityTaipei: "台湾台北新北",
@@ -612,10 +735,10 @@
           document.getElementById('taipei-status').innerText = getWeatherStatusString(resTpe.current_weather.weathercode);
         }
       } catch (error) {
-        document.getElementById('okinawa-temp').innerText = "26°C";
-        document.getElementById('okinawa-status').innerText = currentLang === 'EN' ? "Breezy" : "舒适清爽";
-        document.getElementById('taipei-temp').innerText = "28°C";
-        document.getElementById('taipei-status').innerText = currentLang === 'EN' ? "Mild Clouds" : "晴朗微风";
+        document.getElementById('okinawa-temp').innerText = "27°C";
+        document.getElementById('okinawa-status').innerText = currentLang === 'EN' ? "Sunny" : "晴朗舒适";
+        document.getElementById('taipei-temp').innerText = "29°C";
+        document.getElementById('taipei-status').innerText = currentLang === 'EN' ? "Clear" : "阳光明媚";
       }
     }
 
@@ -633,8 +756,10 @@
         const label = (currentLang === 'EN') ? day.labelEN : day.labelZH;
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = `px-4 py-2 text-xs font-semibold rounded-full shrink-0 transition-all cursor-pointer ${
-          isSelected ? 'bg-slate-900 text-white shadow-sm font-bold' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+        btn.className = `px-4 py-2 text-xs font-bold rounded-xl shrink-0 transition-all cursor-pointer ${
+          isSelected 
+            ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md transform scale-105' 
+            : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
         }`;
         btn.innerText = label;
         btn.onclick = () => {
@@ -660,11 +785,11 @@
         const foodText = (currentLang === 'EN') ? item.foodEN : item.foodZH;
 
         const card = document.createElement('div');
-        card.className = "bg-white border border-slate-100 rounded-xl shadow-xs overflow-hidden flex relative pl-3 py-4 pr-4 transition-all";
+        card.className = "bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden flex relative pl-3.5 py-4 pr-4 transition-all hover:shadow-md";
         
         const accentBar = document.createElement('div');
         accentBar.className = `absolute top-0 left-0 bottom-0 w-1.5 ${
-          item.isFlight ? 'bg-gradient-to-b from-amber-400 to-orange-500' : 'bg-gradient-to-b from-indigo-500 to-teal-400'
+          item.isFlight ? 'bg-gradient-to-b from-amber-400 via-orange-500 to-red-500' : 'bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500'
         }`;
         card.appendChild(accentBar);
 
@@ -675,11 +800,11 @@
         titleRow.className = "flex items-start gap-2.5";
         
         const timeBadge = document.createElement('span');
-        timeBadge.className = "bg-slate-100 text-slate-800 text-[11px] font-bold font-mono px-2 py-0.5 rounded-md mt-0.5 shrink-0";
+        timeBadge.className = "bg-slate-900 text-white text-[11px] font-extrabold font-mono px-2 py-0.5 rounded-md mt-0.5 shrink-0 shadow-xs";
         timeBadge.innerText = item.time;
 
         const headingElement = document.createElement('h3');
-        headingElement.className = "text-sm font-bold text-slate-900 tracking-tight leading-snug";
+        headingElement.className = "text-sm font-extrabold text-slate-900 tracking-tight leading-snug";
         headingElement.innerText = title;
 
         titleRow.appendChild(timeBadge);
@@ -687,7 +812,7 @@
         body.appendChild(titleRow);
 
         const badgeDiv = document.createElement('div');
-        badgeDiv.className = "inline-flex items-center gap-1.5 bg-indigo-50 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-lg";
+        badgeDiv.className = "inline-flex items-center gap-1.5 bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-700 text-xs font-bold px-3 py-1 rounded-xl border border-indigo-100/50";
         badgeDiv.innerHTML = `<span>${durationText}</span>`;
         body.appendChild(badgeDiv);
 
@@ -695,28 +820,28 @@
           const f = item.flightDetails;
           const liveStatusText = (currentLang === 'EN') ? f.statusEN : f.statusZH;
           const flightBoard = document.createElement('div');
-          flightBoard.className = "bg-slate-950 border border-slate-800 text-amber-400 font-mono text-[11px] rounded-lg p-3 space-y-2 shadow-inner";
+          flightBoard.className = "bg-slate-950 border border-slate-800 text-amber-400 font-mono text-[11px] rounded-xl p-3.5 space-y-2.5 shadow-inner";
           flightBoard.innerHTML = `
-            <div class="flex justify-between items-center text-[10px] text-slate-500 border-b border-slate-800 pb-1 font-sans">
-              <span>✈️ ${dict.flightBoardTitle}</span>
-              <span class="text-slate-400 font-bold">${f.carrier}</span>
+            <div class="flex justify-between items-center text-[10px] text-slate-500 border-b border-slate-900 pb-1.5 font-sans">
+              <span class="font-bold tracking-widest text-slate-400">✈️ ${dict.flightBoardTitle}</span>
+              <span class="text-amber-500 font-black tracking-wider">${f.carrier}</span>
             </div>
-            <div class="grid grid-cols-2 gap-y-2 gap-x-4 pt-1">
+            <div class="grid grid-cols-2 gap-y-2.5 gap-x-4 pt-0.5">
               <div>
-                <span class="block text-[9px] text-slate-500 font-sans uppercase">${dict.schDep}</span>
-                <span class="text-sm font-bold tracking-wider text-slate-100">${f.depTime}</span>
+                <span class="block text-[9px] text-slate-500 font-sans uppercase font-bold">${dict.schDep}</span>
+                <span class="text-sm font-extrabold tracking-wider text-slate-100">${f.depTime}</span>
               </div>
               <div>
-                <span class="block text-[9px] text-slate-500 font-sans uppercase">${dict.terminal}</span>
-                <span class="text-sm font-bold text-slate-100">${f.terminal}</span>
+                <span class="block text-[9px] text-slate-500 font-sans uppercase font-bold">${dict.terminal}</span>
+                <span class="text-sm font-extrabold text-slate-100">${f.terminal}</span>
               </div>
               <div>
-                <span class="block text-[9px] text-slate-500 font-sans uppercase">${dict.gate}</span>
-                <span class="text-sm font-bold text-slate-100">${f.gate}</span>
+                <span class="block text-[9px] text-slate-500 font-sans uppercase font-bold">${dict.gate}</span>
+                <span class="text-sm font-extrabold text-slate-100">${f.gate}</span>
               </div>
               <div>
-                <span class="block text-[9px] text-slate-500 font-sans uppercase">${dict.status}</span>
-                <span class="text-xs font-bold text-emerald-400 px-1 py-0.5 rounded bg-emerald-950/40 border border-emerald-900/50 inline-block mt-0.5">${liveStatusText}</span>
+                <span class="block text-[9px] text-slate-500 font-sans uppercase font-bold">${dict.status}</span>
+                <span class="text-xs font-black text-emerald-400 px-1.5 py-0.5 rounded bg-emerald-950/50 border border-emerald-900 inline-block mt-0.5 animate-pulse">${liveStatusText}</span>
               </div>
             </div>
           `;
@@ -727,17 +852,17 @@
         targetsGrid.className = "grid grid-cols-1 gap-2 pt-1";
 
         const buyBox = document.createElement('div');
-        buyBox.className = "bg-amber-50/60 border border-amber-100/70 rounded-lg p-2.5";
+        buyBox.className = "bg-gradient-to-br from-amber-50/70 to-orange-50/30 border border-amber-100 rounded-xl p-3 shadow-2xs";
         buyBox.innerHTML = `
-          <h4 class="text-xs font-bold text-amber-800 flex items-center gap-1 mb-0.5">${dict.buyTitle}</h4>
-          <p class="text-xs text-slate-600 leading-relaxed font-medium">${shoppingText}</p>
+          <h4 class="text-xs font-extrabold text-amber-800 flex items-center gap-1 mb-0.5">${dict.buyTitle}</h4>
+          <p class="text-xs text-slate-600 leading-relaxed font-semibold">${shoppingText}</p>
         `;
 
         const foodBox = document.createElement('div');
-        foodBox.className = "bg-emerald-50/60 border border-emerald-100/70 rounded-lg p-2.5";
+        foodBox.className = "bg-gradient-to-br from-emerald-50/70 to-teal-50/30 border border-emerald-100 rounded-xl p-3 shadow-2xs";
         foodBox.innerHTML = `
-          <h4 class="text-xs font-bold text-emerald-800 flex items-center gap-1 mb-0.5">${dict.foodTitle}</h4>
-          <p class="text-xs text-slate-600 leading-relaxed font-medium">${foodText}</p>
+          <h4 class="text-xs font-extrabold text-emerald-800 flex items-center gap-1 mb-0.5">${dict.foodTitle}</h4>
+          <p class="text-xs text-slate-600 leading-relaxed font-semibold">${foodText}</p>
         `;
 
         targetsGrid.appendChild(buyBox);
