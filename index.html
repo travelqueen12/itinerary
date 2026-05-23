@@ -9,18 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-    /* Hide scrollbar for Chrome, Safari and Opera */
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    /* Hide scrollbar for IE, Edge and Firefox */
-    .no-scrollbar {
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
-    }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
@@ -29,7 +20,7 @@
 
     <header class="sticky top-0 z-50 bg-slate-900 text-white px-4 py-3 shadow-md flex items-center justify-between">
       <div>
-        <h1 id="ui-app-title" class="text-lg font-bold tracking-tight">Family Itinerary</h1>
+        <h1 id="ui-app-title" class="text-sm font-bold tracking-tight uppercase text-slate-400">Friend's Family Trip</h1>
         <span id="active-date-badge" class="inline-block mt-0.5 text-xs bg-indigo-600 px-2 py-0.5 rounded-full font-medium tracking-wide">
           26 May 2026
         </span>
@@ -56,7 +47,7 @@
             <div class="flex items-baseline gap-1 my-1">
               <span id="okinawa-temp" class="text-2xl font-bold tracking-tight">--°C</span>
             </div>
-            <span id="okinawa-status" class="text-[11px] text-slate-400 font-medium">Fetching details...</span>
+            <span id="okinawa-status" class="text-[11px] text-slate-400 font-medium">Fetching...</span>
           </div>
           
           <div class="bg-white/5 border border-white/10 rounded-xl p-3 flex flex-col justify-between">
@@ -64,12 +55,12 @@
             <div class="flex items-baseline gap-1 my-1">
               <span id="taipei-temp" class="text-2xl font-bold tracking-tight">--°C</span>
             </div>
-            <span id="taipei-status" class="text-[11px] text-slate-400 font-medium">Fetching details...</span>
+            <span id="taipei-status" class="text-[11px] text-slate-400 font-medium">Fetching...</span>
           </div>
         </div>
       </section>
 
-      <nav id="day-tabs-container" class="flex gap-2 overflow-x-auto pb-1 no-scrollbar sticky top-[60px] bg-white py-2 z-40 shadow-[0_4px_6px_-4px_rgba(0,0,0,0.05)]">
+      <nav id="day-tabs-container" class="flex gap-2 overflow-x-auto pb-1 no-scrollbar sticky top-[56px] bg-white py-2 z-40 shadow-[0_4px_6px_-4px_rgba(0,0,0,0.05)]">
         </nav>
 
       <div id="timeline-container" class="space-y-4">
@@ -79,11 +70,10 @@
   </div>
 
   <script>
-    // --- APP STATE MANAGEMENT ---
-    let currentLang = 'EN'; // 'EN' or 'ZH'
-    let currentDayIndex = 0; // Index of the currently highlighted date
+    let currentLang = 'EN'; 
+    let currentDayIndex = 0; 
 
-    // Complete Database Parsing Rules integrated based on flight & hotel logic
+    // Re-mapped structural array parsing her standalone data vs joint 28/29 itinerary data
     const itineraryData = [
       {
         date: "26 May 2026",
@@ -91,25 +81,37 @@
         labelZH: "5月26日",
         timeline: [
           {
+            type: "transit",
+            time: "19:45",
+            titleEN: "Depart to Airport (KLIA2)",
+            titleZH: "前往吉隆坡第二航站楼 (KLIA2)",
+            durationEN: "⏱️ Transit Duration: ~1h from city center",
+            durationZH: "⏱️ 预计车程：市区出发约 1 小时",
+            shoppingEN: "Collect pre-booked mobile data SIMs and check emergency medicines.",
+            shoppingZH: "可在机场柜台领取预订的上网卡，备齐随身常备药品。",
+            foodEN: "Grab regional Malaysian food bites or light snacks inside the terminal departure hall.",
+            foodZH: "推荐在出发大厅简单享用道地的本地椰浆饭或南洋咖啡茶点。"
+          },
+          {
             type: "flight",
-            time: "22:15",
-            titleEN: "Flight Departure from Kuala Lumpur (KUL)",
-            titleZH: "从吉隆坡机场 (KUL) 出发飞往台北",
-            durationEN: "⏱️ Transit Flight to Taipei Transfer Station",
-            durationZH: "⏱️ 前往台北转机航程",
+            time: "22:45",
+            titleEN: "Transit Flight to Singapore Changi Airport",
+            titleZH: "搭乘航班飞往新加坡樟宜机场转机",
+            durationEN: "⏱️ Flight Duration: 1h 20m",
+            durationZH: "⏱️ 预计飞行时间：1 小时 20 分钟",
             isFlight: true,
             flightDetails: {
-              carrier: "Malaysia Airlines / Tigerair",
-              depTime: "22:15",
-              terminal: "KLIA T1",
-              gate: "C12",
-              statusEN: "Scheduled / Boarding Soon",
-              statusZH: "计划中 / 即将登机"
+              carrier: "Budget Regional Jet",
+              depTime: "22:45",
+              terminal: "KLIA2 Gate L8",
+              gate: "L8",
+              statusEN: "On Time",
+              statusZH: "准点"
             },
-            shoppingEN: "Grab travel essentials or duty-free skincare at KLIA.",
-            shoppingZH: "可在吉隆坡国际机场免税店购买旅行备用好物或护肤品。",
-            foodEN: "Enjoy dining at KUL airport lounges or regional Asian hubs.",
-            foodZH: "建议在吉隆坡机场贵宾室或亚洲风味餐厅享用美味晚餐。"
+            shoppingEN: "Duty-free shop checks or minor retail options inside the boarding area.",
+            shoppingZH: "登机长廊内设有部分免税彩妆与便携数码配件精品店。",
+            foodEN: "Inflight drinks or a quick standard snack combo.",
+            foodZH: "建议在机上享用轻便饮品，安心休息为后续转机保存充沛体力。"
           }
         ]
       },
@@ -119,56 +121,128 @@
         labelZH: "5月27日",
         timeline: [
           {
+            type: "transit",
+            time: "00:05",
+            titleEN: "Arrival at Singapore Changi Airport (Transit Hub)",
+            titleZH: "抵达新加坡樟宜机场（中转等待区）",
+            durationEN: "⏱️ Layover Duration: Approx 2h 10m",
+            durationZH: "⏱️ 机场内停留转机：约 2 小时 10 分钟",
+            shoppingEN: "Browse world-class duty-free cosmetics, premium merchandise, and souvenir items.",
+            shoppingZH: "樟宜机场免税店品类齐备，可顺手捎带高档美妆伴手礼或旅行纪念品。",
+            foodEN: "Late-night refreshments at 24h counters; premium laksa broth bowl options.",
+            foodZH: "可在24小时营业区来一碗热乎乎的星洲叻沙或咖椰吐司夜宵。"
+          },
+          {
             type: "flight",
-            time: "06:30",
-            titleEN: "Transit Flight to Okinawa (OKA)",
-            titleZH: "台北转机飞往日本冲绳那霸机场 (OKA)",
-            durationEN: "⏱️ Flight Duration: Approx 1h 30m",
-            durationZH: "⏱️ 预计飞行时间：约 1 小时 30 分钟",
+            time: "02:15",
+            titleEN: "International Flight: Singapore to Okinawa Naha (OKA)",
+            titleZH: "飞往日本冲绳那霸机场 (OKA)",
+            durationEN: "⏱️ Overnight Flying Duration: 6h 20m",
+            durationZH: "⏱️ 跨夜飞行时间：约 6 小时 20 分钟",
             isFlight: true,
             flightDetails: {
-              carrier: "Peach Aviation / Tigerair",
-              depTime: "06:30",
-              terminal: "Taoyuan T1",
-              gate: "B4",
-              statusEN: "On Time / 准点",
-              statusZH: "准点"
+              carrier: "Okinawa Direct Line",
+              depTime: "02:15",
+              terminal: "Changi T2",
+              gate: "F34",
+              statusEN: "Boarding",
+              statusZH: "正在登机"
             },
-            shoppingEN: "Check out limited edition Taiwan or Japan duty-free specials.",
-            shoppingZH: "可在桃园转机区或冲绳免税区浏览地区限定免税商品。",
-            foodEN: "Quick breakfast at Taiwan Airport; try savory Taiwanese dynamic meal options.",
-            foodZH: "在桃园机场享用快捷早餐，推荐热腾腾的经典台式蛋饼与晨间饮品。"
+            shoppingEN: "Request customized duty-free shopping bags before deep sleep.",
+            shoppingZH: "建议在机上安稳补眠休息，为落地冲绳的第一天行程养精蓄锐。",
+            foodEN: "Pre-ordered hot breakfast served mid-flight before sunrise.",
+            foodZH: "降落前机上将供应一份热气腾腾的日式或西式暖胃早点。"
           },
           {
             type: "activity",
-            time: "09:00",
-            titleEN: "Naha Airport Arrival & Dedicated Driver Meetup",
-            titleZH: "抵达那霸机场 & 专属包车司机会合",
-            durationEN: "⏱️ Drive Time: 45 mins to Chatan Central Coast",
-            durationZH: "⏱️ 车程：前往北谷町中部海岸约 45 分钟",
-            shoppingEN: "Grab regional eSIM cards, local snacks, or travel guide dynamic maps at the terminal.",
-            shoppingZH: "可在机场大厅购买冲绳限定小零食、旅游纪念地图或急需的电子产品。",
-            foodEN: "Savor local Okinawan Pork Tamago Onigiri (Spam Rice Balls) directly at the airport arrivals area.",
-            foodZH: "强力推荐在那霸机场国内线大厅抢先品尝热腾腾的冲绳限定饭团 (冲绳猪肉蛋饭团)。"
+            time: "10:05",
+            titleEN: "Land in Okinawa & Meet Private Driver for Car Rental",
+            titleZH: "降落冲绳那霸 & 专属包车直达 ZH Car Rental 取车",
+            durationEN: "⏱️ Travel Time: 30 mins smooth drop to depot",
+            durationZH: "⏱️ 预计车程：包车直达取车行约 30 分钟，行李全数安置在尾箱",
+            shoppingEN: "Pick up local road maps, driving guidance manuals, and localized phone clips.",
+            shoppingZH: "可在店里领取冲绳自驾游中文离线全彩地图与行车注意事项手册。",
+            foodEN: "Walk nearby for a classic Okinawan breakfast bowl or savory local onigiri.",
+            foodZH: "推荐享用经典的冲绳猪肉蛋饭团，咸香适口，全家大小都超级爱吃！"
+          },
+          {
+            type: "activity",
+            time: "11:00",
+            titleEN: "Early Lunch: 旅の終わりの朝ごはん",
+            titleZH: "地道美食：旅の終わりの朝ごはん 古风餐室",
+            durationEN: "⏱️ Drive Duration: 20 mins smooth travel",
+            durationZH: "⏱️ 预计车程：行驶约 20 分钟",
+            shoppingEN: "Pick up unique packaged artisanal condiments and local recipe sheets.",
+            shoppingZH: "餐馆附近有售卖手作调味酱汁或精美的小木雕摆件。",
+            foodEN: "Savor comforting hot soups, traditional set meals, and premium melt-in-mouth slow cooked pork belly.",
+            foodZH: "强烈推荐品尝招牌日式朝食套餐，配上特制秘汤与嫩滑多汁的黑猪肉，大饱口福！"
+          },
+          {
+            type: "activity",
+            time: "12:40",
+            titleEN: "Ryukyu Glass Village Exploration",
+            titleZH: "琉球玻璃村 · 梦幻艺术手作彩绘体验",
+            durationEN: "⏱️ Drive Duration: 30 mins scenic highway cruise",
+            durationZH: "⏱️ 预计车程：开往南部玻璃村约 30 分钟",
+            shoppingEN: "Buy stunning handmade rainbow glass cups, delicate flower vases, and aesthetic Shisa statuettes.",
+            shoppingZH: "必买馆内工匠亲手吹制的彩色独创玻璃杯、风铃，以及流光溢彩的招福狮玻璃工艺品。",
+            foodEN: "Cool down with sparkling icy fruit sodas or fresh milk ice cream at the village cafe corner.",
+            foodZH: "推荐在园区玻璃工艺茶歇角享用一份冰凉沁心的盐味软冰淇淋或特色热带果汁。"
           },
           {
             type: "activity",
             time: "15:00",
-            titleEN: "Hotel Check-in: The Hotel Chatan by Sunrest Resort",
-            titleZH: "入住酒店：北谷町太阳休息度假村酒店",
-            durationEN: "⏱️ Smooth drop-off by private vehicle; luggage securely stored in boot.",
-            durationZH: "⏱️ 专属包车直达酒店门口，行李已妥善安置于车尾箱，全程轻松无忧。",
-            shoppingEN: "Stroll through neighboring coastal boutiques for premium resort apparel.",
-            shoppingZH: "可在酒店周边独具特色的美式海滨精品店采购海岛度假风服饰。" ,
-            foodEN: "Indulge in sizzling A5 Ishigaki Premium Beef Steaks or local premium Wagyu at nearby American Village grills.",
-            foodZH: "晚餐大饱口福！尽情享用鲜美多汁的 A5 石垣牛排或顶级日式黑毛和牛烧肉。"
+            titleEN: "Ashibinaa Okinawa Outlet Shopping Spree",
+            titleZH: "Ashibinaa 冲绳奥特莱斯购物中心 · 大牌疯狂扫货",
+            durationEN: "⏱️ Drive Duration: 15 mins close proximity transfer",
+            durationZH: "⏱️ 预计车程：开往奥特莱斯约 15 分钟",
+            shoppingEN: "Massive savings on global fashion, localized luxury items, sport shoes, and kids collectibles.",
+            shoppingZH: "绝对是运动大牌（Adidas/Nike）、国际服饰、轻奢皮包及童装的终极血拼天堂！",
+            foodEN: "Feast on flame-grilled Wagyu or premium thick juicy beef cutlet sets at the central food courtyard.",
+            foodZH: "家人们超爱的牛肉来啦！推荐在商圈美食街点一份滋滋作响的高级铁板炙烧牛肉定食！"
+          },
+          {
+            type: "activity",
+            time: "17:40",
+            titleEN: "San-A Parco City Coastal Mega Mall",
+            titleZH: "浦添 Parco City 海滨大型购物广场",
+            durationEN: "⏱️ Drive Duration: 33 mins seaside highway drive",
+            durationZH: "⏱️ 预计车程：沿海公路行驶约 33 分钟",
+            shoppingEN: "Explore extensive lifestyle goods, Japanese drugstores (matsukiyo), cosmetics, and gifts.",
+            shoppingZH: "重点推荐横扫超大药妆店、流行潮牌服饰、手信铺、以及杂货控最爱的多样特色小铺。",
+            foodEN: "Try local Okinawan Taco Rice combos or a bowl of premium beef rib hot noodles.",
+            foodZH: "晚餐选择丰富，极力推荐汤头浓郁香醇的极品和牛排骨拉面或特色芝士辣牛塔可饭。"
+          },
+          {
+            type: "activity",
+            time: "19:15",
+            titleEN: "Gourmet Dinner: Yakiniku Ryukyunoushi Chatan",
+            titleZH: "顶级大餐：琉球之牛北谷店 (已预订19:45席位)",
+            durationEN: "⏱️ Drive Duration: 25 mins back to central Chatan",
+            durationZH: "⏱️ 预计车程：开往北谷町约 25 分钟",
+            shoppingEN: "Snag premium charcoal grill seasoning salts and souvenir recipe post-cards.",
+            shoppingZH: "可购买餐厅秘制的精品烤肉盐礼盒、香辣沾酱，回家也能复刻美味。",
+            foodEN: "CRITICAL MEAL: World-class premium Okinawan black WAGYU beef slices that melt instantly on your tongue!",
+            foodZH: "重磅牛肉暴击！尽情纵享全日本顶尖、入口即化且雪花分布极度完美的「琉球之牛顶级黑毛和牛烧肉」！"
+          },
+          {
+            type: "activity",
+            time: "21:30",
+            titleEN: "Hotel Check-in & American Village Nightlights",
+            titleZH: "入住北谷町核心酒店 & 美国村浪漫霓虹街夜景",
+            durationEN: "⏱️ Short transfer: 4 mins drive or 16 mins breezy walk",
+            durationZH: "⏱️ 交通：驱车仅 4 分钟（或全家惬意散步 16 分钟即可返回舒适客房）",
+            shoppingEN: "Pick up late-night convenience store snacks, local fresh milk, and limited fruit beers at Lawson.",
+            shoppingZH: "可在楼下全家或Lawson便利店抢购冲绳限定泡盛酒、黑糖冰棒及高品质鲜牛奶。",
+            foodEN: "Late night juicy beef skewers, Blue Seal ice cream scoops, or hot crispy onion rings.",
+            foodZH: "夜宵可以再来一份香气诱人的炙烤牛肉串串，配上一杯爽口冰镇汽水。"
           }
         ]
       },
       {
         date: "28 May 2026",
-        labelEN: "28 May",
-        labelZH: "5月28日",
+        labelEN: "28 May (Joint)",
+        labelZH: "5月28日 (合体游)",
         timeline: [
           {
             type: "activity",
@@ -190,7 +264,7 @@
             durationEN: "⏱️ Drive Time: 35 mins from Churaumi Aquarium",
             durationZH: "⏱️ 车程：从水族馆出发约 35 分钟",
             shoppingEN: "Buy premium Kouri Island Pumpkin Manju pastries and natural brown sugar delicacies.",
-            shoppingZH: "必买古宇利岛限定的香甜南瓜馒头、浓郁南瓜洋果子以及天然纯正的冲绳黑糖制品。",
+            shoppingZH: "必买古宇利岛限定的香甜南瓜馒头、浓烟南瓜洋果子以及天然纯正的冲绳黑糖制品。",
             foodEN: "Savor garlic-infused grilled shrimp plates or premium Wagyu dynamic burgers overlooking the emerald bridge.",
             foodZH: "极力推荐享用著名的古宇利古早风味大蒜虾拼盘，或面向绝美果冻海品尝多汁的和牛汉堡。"
           }
@@ -198,8 +272,8 @@
       },
       {
         date: "29 May 2026",
-        labelEN: "29 May",
-        labelZH: "5月29日",
+        labelEN: "29 May (Joint)",
+        labelZH: "5月29日 (合体游)",
         timeline: [
           {
             type: "activity",
@@ -233,61 +307,64 @@
         labelZH: "5月30日",
         timeline: [
           {
-            type: "flight",
-            time: "10:15",
-            titleEN: "Flight Departure from Okinawa to Taipei",
-            titleZH: "搭乘国际航班告别冲绳，飞往台北桃园",
-            durationEN: "⏱️ Transit Charter to OKA Terminal: 45 mins",
-            durationZH: "⏱️ 车程：包车前往那霸机场约 45 分钟，司机协助安置好全部行李",
-            isFlight: true,
-            flightDetails: {
-              carrier: "Tigerair Taiwan / Peach",
-              depTime: "10:15",
-              terminal: "Naha Int'l L3",
-              gate: "41",
-              statusEN: "On Time",
-              statusZH: "准点"
-            },
-            shoppingEN: "Last-minute purchase of Beni-Imo (Purple Yam) tarts and Royce Okinawan Mango chocolates.",
-            shoppingZH: "机场免税店最后冲刺：必买御菓子御殿红薯挞和 Royce 冲绳限定黑糖/芒果生巧克力。",
-            foodEN: "Grab a warm bento or fresh matcha lattes before clearing customs at Naha terminal.",
-            foodZH: "登机前可在机场内购买精致的和风便当或来一杯冰镇宇治抹茶拿铁。"
+            type: "activity",
+            time: "08:00",
+            titleEN: "Morning Fuel at Good Day Coffee",
+            titleZH: "晨间活力：Good Day Coffee 冲绳元气美式早餐店",
+            durationEN: "⏱️ Short Drive: 3 mins from hotel (or 17 mins walk)",
+            durationZH: "⏱️ 预计车程：驱车 3 分钟即可抵达（步行约 17 分钟）",
+            shoppingEN: "Grab artisanal house-roasted coffee bean bags and aesthetic stickers.",
+            shoppingZH: "店里有售卖自家独立烘焙的精品咖啡豆以及潮流涂鸦文创贴纸。",
+            foodEN: "Indulge in crispy bacon, creamy avocado toast, sizzling beef sausage hash, and fresh pour-over brews.",
+            foodZH: "必点外酥里嫩的招牌香煎培根牛油果吐司、香肠拼盘，再配上一杯冰镇海岛风拿铁。"
           },
           {
             type: "activity",
-            time: "13:30",
-            titleEN: "Yilan Charter Tour: Red Lantern Roast Duck Feast",
-            titleZH: "宜兰专属包车巡游：红楼中餐厅樱桃鸭传奇盛宴",
-            durationEN: "⏱️ Premium Highway Transit: 1h 10m from Taoyuan Airport",
-            durationZH: "⏱️ 车程：桃园机场接机直达宜兰约 1 小时 10 分钟",
-            shoppingEN: "Purchase localized Sanxing scallion pancake pre-mixes and dynamic Yilan ox-tongue biscuits.",
-            shoppingZH: "值得选购宜兰当地最出名的三星葱系列特产、伴手礼糕点以及纯正的手工牛舌饼。",
-            foodEN: "Indulge in the legendary 5-Way Red Lantern Cherry Roast Duck featuring melting duck skin nigiri sushi!",
-            foodZH: "重磅美食！尽情享受全台闻名的红楼中餐厅「樱桃霸王鸭五吃」，尤其是入口即化、油脂丰盈的独创樱桃鸭握寿司！"
+            time: "10:00",
+            titleEN: "American Village & Aeon Beachfront Shopping",
+            titleZH: "美国村自由漫步 & 永旺 (Aeon) 超市大采购",
+            durationEN: "⏱️ Close proximity drive: 8 mins to complex center",
+            durationZH: "⏱️ 车程：行驶约 8 分钟，随后退房，司机打包全部行李妥善上车",
+            shoppingEN: "Stock up on Okinawan local delicacies, unique beach towels, and cute snacks to bring to the beach.",
+            shoppingZH: "可以在大型永旺超市里狂扫冲绳辣油、抹茶麻薯、防晒海滩好物等必备零食特产。",
+            foodEN: "Grab takeaway gourmet hand-rolls, seasoned snack chicken wings, or beef jerky snacks for the road.",
+            foodZH: "建议在超市熟食区随手带上几份现炸爆汁和牛丸、香酥炸鸡或海鲜便当去海边野餐。"
           },
           {
             type: "activity",
-            time: "16:00",
-            titleEN: "Zhang Mei Ama’s Farm Animal Encounter",
-            titleZH: "张美阿嬷农场 · 疗愈萌宠零距离亲密接触",
-            durationEN: "⏱️ Charter Drop-off: Smooth entry; luggage securely locked in vehicle.",
-            durationZH: "⏱️ 包车直达农场：无忧空手入园，全重行李放置于车内，省心省力。",
-            shoppingEN: "Adopt animal-themed headbands, custom alpaca/capybara charms, and organic farm dynamic items.",
-            shoppingZH: "推荐选购农场限定的水豚君、小鹿毛绒发箍、治愈系羊驼挂件及有机农场文创特产。",
-            foodEN: "Exchange your entry voucher for piping hot scallion pancakes, organic sweet potato balls, or creamy milk tea.",
-            foodZH: "可免费凭入园门票兑换现炸金黄酥脆的三星葱油饼、美味地瓜球或冰镇浓郁日式草本茶饮。"
+            time: "13:50",
+            titleEN: "Chinen Cape Panoramic Photostop",
+            titleZH: "知念岬公园 · 270度环绕太平洋绝美断崖观景台",
+            durationEN: "⏱️ Distance Journey: 1h 20m cross-island scenic transit",
+            durationZH: "⏱️ 预计车程：跨岛长途平稳包车约 1 小时 20 分钟",
+            shoppingEN: "Get beautiful local panoramic picture postcards from nearby rustic vendor stalls.",
+            shoppingZH: "可在岬角小木屋休息区淘几张极具南国风情的海景明信片做纪念。",
+            foodEN: "Refresh yourself with premium cold brown sugar milk bubble drinks or premium ice cream tubs.",
+            foodZH: "看海绝配！来一根冲绳冰凉香甜的特产柑橘冰棒，或者喝一杯冰镇黑糖厚乳。"
           },
           {
             type: "activity",
-            time: "19:30",
-            titleEN: "Hotel Check-in: Hotel Relax III Taipei",
-            titleZH: "办理入住：台北旅乐序精品旅店三馆",
-            durationEN: "⏱️ Traffic Transit: 1h return from Yilan to Taipei Center",
-            durationZH: "⏱️ 车程：从宜兰返回台北市中心约 1 小时，直达旅店正门。",
-            shoppingEN: "Explore local cosmetics, high-performing face masks, and boutique items at Taipei Main Station underpasses.",
-            shoppingZH: "下榻后可在台北车站地下街、新光三越周边药妆店轻松开启美妆护肤品血拼模式。",
-            foodEN: "Walk to local gourmet destinations; try legendary Taiwanese Braised Beef Noodles or spicy beef hotpot.",
-            foodZH: "夜宵首选！步行即可到达周边老字号品尝汤头浓郁、牛肉软嫩的大块台式红烧牛肉面。"
+            time: "15:15",
+            titleEN: "Azama Sun Sun Beach Sea Breeze Walk",
+            titleZH: "安座真 Sun Sun 海滩 · 白沙碧海绝美漫步",
+            durationEN: "⏱️ Swift drive: 6 mins near Chinen Cape",
+            durationZH: "⏱️ 车程：下山驱车 6 分钟即达海滩",
+            shoppingEN: "Rent beautiful sea shells, high-protection sunglasses, or localized resort merchandise.",
+            shoppingZH: "海滩小铺有贩卖特色贝壳风铃、海岛印花沙滩裙以及玩沙戏水玩具套组。",
+            foodEN: "Feast on savory grilled beef yakitori skewers or sizzling hot noodles right beside the beach dynamic view.",
+            foodZH: "在海滩烧烤屋边吹海风，边大口享用现烤香喷喷的炙烧牛肉串与日式炒面。"
+          },
+          {
+            type: "activity",
+            time: "19:50",
+            titleEN: "Return Car & Explore Kokusai Dori (International Street)",
+            titleZH: "赤嶺站顺利还车 ---- 乘坐单轨列车纵情夜游国际通",
+            durationEN: "⏱️ Return Logistics: 30 mins to Akamine Station, then 20 mins train to city center",
+            durationZH: "⏱️ 交通：开车 30 分钟到赤嶺站还车，换乘轻轨单轨20分钟直奔核心闹市区",
+            shoppingEN: "Massive souvenir shopping: Shisa ornaments, Calbee Okinawa potato chips, and Don Quijote deals.",
+            shoppingZH: "手信天堂！开启暴走模式买齐惊安殿堂药妆、黑糖年糕、以及冲绳限定款Calbee紫薯膨化食品。",
+            foodEN: "Dine like royalty on world-class premium Ishigaki Beef burgers or a steaming bowl of premium Okinawan pork bone broth ramen.",
+            foodZH: "深夜高潮美食：强力推荐在国际通屋台村，点一盘鲜嫩香浓的炭火烤石垣牛肋条或蒜香和牛寿喜烧！"
           }
         ]
       },
@@ -297,40 +374,73 @@
         labelZH: "5月31日",
         timeline: [
           {
-            type: "activity",
-            time: "10:00",
-            titleEN: "Jiufen Old Street Cultural Nostalgia Tour",
-            titleZH: "九份老街山城怀旧与千与千寻梦幻漫步",
-            durationEN: "⏱️ Charter Travel: 50 mins from central Taipei",
-            durationZH: "⏱️ 车程：台北市区出发至九份山城约 50 分钟，专属司机平稳护送",
-            shoppingEN: "Buy signature dynamic hand-carved wooden crafts, custom calligraphic bookmarks, and premium high mountain tea leaves.",
-            shoppingZH: "适合挑选手工雕刻木艺品、复古明信片、以及盛名在外的台湾高山乌龙茶茶叶。",
-            foodEN: "Must try chewy Grandma Lai's Taro Balls, sweet herbal Caozai Guo (Mugwort rice cakes), and premium Taiwanese beef balls.",
-            foodZH: "打卡美食：必吃赖阿婆芋圆（冷热皆宜）、金黄香糯的草仔粿、以及爽口弹牙的黑猪肉丸或红糟肉圆。"
+            type: "flight",
+            time: "08:10",
+            titleEN: "Flight Departure: Okinawa (OKA) to Taipei (TPE)",
+            titleZH: "再见冲绳 · 开启台湾台北奇幻之行",
+            durationEN: "⏱️ Early Check-in: Uber to Naha Airport takes 12 mins at 06:10 AM",
+            durationZH: "⏱️ 交通：清晨 06:10 打车 12 分钟速达那霸机场，开启国际航段",
+            isFlight: true,
+            flightDetails: {
+              carrier: "Cross-Strait Air",
+              depTime: "08:10",
+              terminal: "Naha Int'l L2",
+              gate: "43",
+              statusEN: "On Time",
+              statusZH: "准点"
+            },
+            shoppingEN: "Pick up last minute Okinawan goodies or duty free premium tobacco/alcohol products.",
+            shoppingZH: "那霸出境大厅可购买最后的冲绳限定巧克力或日本名酒伴手礼。",
+            foodEN: "Quick morning pastry or comforting hot coffee before flying out.",
+            foodZH: "候机时来一份松软的日式牛角面包配热拿铁，开启充沛的一天。"
           },
           {
             type: "activity",
-            time: "15:30",
-            titleEN: "Keelung Zhengbin Port Colorful Shanty Houses",
-            titleZH: "基隆正滨渔港 · 梦幻威尼斯彩色屋群美拍",
-            durationEN: "⏱️ Drive Time: 30 mins scenic drive from Jiufen",
-            durationZH: "⏱️ 车程：从九份山城下山前往基隆海滨约 30 小时",
-            shoppingEN: "Pick up artisanal marine-themed keychains and local dried premium ocean snacks.",
-            shoppingZH: "可在这里购买特色海洋文创挂件，或是在海产店捎带海味十足的纯天然海鲜干货伴手礼。",
-            foodEN: "Savor ocean-fresh grilled abalone, premium Flying Fish Roe sausages, or iced bubble tea at a harbor cafe.",
-            foodZH: "海滨茶歇：来一支外皮焦脆的飞鱼卵香肠，或在彩色屋海景咖啡厅享用手工烘焙华夫饼与浓郁拿铁。"
+            time: "11:15",
+            titleEN: "Land in Taiwan & Direct Drive to Tucheng World Garden",
+            titleZH: "顺畅抵达台湾台北 & 专属包车直奔新北土城世界花園",
+            durationEN: "⏱️ Highway Transit: 50 mins from Taoyuan Airport",
+            durationZH: "⏱️ 车程：大件行李平稳锁在车尾箱，机场直驱土城约 50 分钟",
+            shoppingEN: "Get local Taiwan FarEasTone internet SIM cards and EasyCards (悠游卡) at airport kiosk.",
+            shoppingZH: "可在接机大厅办理高速全线无限制上网卡，顺手买几张可爱联名版悠游卡。",
+            foodEN: "Grab a refreshing iced Taiwanese classic milk tea directly upon arrival.",
+            foodZH: "落地的第一口快乐：马上安排一杯宝岛纯正、加满珍珠的大杯波霸奶茶。"
           },
           {
             type: "activity",
-            time: "18:30",
-            titleEN: "Raohe Street Night Market Food Extravaganza",
-            titleZH: "饶河街观光夜市 · 台湾顶流小吃超级饕餮夜",
-            durationEN: "⏱️ Charter Return: 35 mins back to Taipei city district",
-            durationZH: "⏱️ 车程：基隆返回台北市区约 35 分钟，司机直接送至夜市入口",
-            shoppingEN: "Explore local tech accessories, customized phone dynamic skins, and quirky Taiwanese souvenirs.",
-            shoppingZH: "夜市好物：沿街充满了各类潮流手机壳、个性化萌系文创小物以及各式台湾复古伴手礼盒。",
-            foodEN: "Indulge in Michelin-recommended Fuzhou Black Pepper Pork Buns, juicy Herbal Pork Ribs, and flame-grilled Wagyu Beef cubes!",
-            foodZH: "大口吃肉：必排队盲选荣获米其林推荐的福州世祖胡椒饼、药炖排骨，以及香气四溢的现火炙烧骰子和牛！"
+            time: "12:00",
+            titleEN: "Gourmet Lunch: Ah-Cheng Goose Meat OR Top One Pot",
+            titleZH: "顶级午餐二选一：土城阿城鹅肉金牌宴 或 这一锅皇室秘藏锅物（板桥店）",
+            durationEN: "⏱️ Near Drive: 5 to 18 mins quick car transfer",
+            durationZH: "⏱️ 车程：驱车只需 5 到 18 分钟即可平稳停靠餐厅门前",
+            shoppingEN: "Purchase Michelin-recommended golden goose oil jars or signature chili paste bottles.",
+            shoppingZH: "强烈安利在阿城鹅肉前台打包买几瓶镇店之宝「黄金鹅油香葱精装罐」！",
+            foodEN: "Indulge in ultra-juicy smoked goose slices OR boiling spicy hotpot rich broth packed with premium Taiwanese marbled beef plates!",
+            foodZH: "吃肉狂欢：不管是全台第一的阿城熏鹅肉，还是在「这一锅」用麻辣红汤疯狂涮煮油脂极其丰富的顶级美国极黑和牛板腱，都绝不会让你失望！"
+          },
+          {
+            type: "activity",
+            time: "14:40",
+            titleEN: "Afternoon Walk: Daxi Old Street OR Ximending District",
+            titleZH: "午后潮玩二选一：怀旧大溪老街风情 或 台北西门町时尚圣地大巡游",
+            durationEN: "⏱️ Drive Duration: ~40 mins comfortable air-conditioned ride",
+            durationZH: "⏱️ 车程：两地皆在 40 分钟包车半径内，任选一处绝美打卡点",
+            shoppingEN: "Buy signature Daxi dried bean curd blocks OR trendy apparel and premium face masks at Ximending shops.",
+            shoppingZH: "老街必买古早味大溪豆干；西门町则必横扫屈臣氏、康是美药妆面膜与潮流盲盒潮玩。",
+            foodEN: "Savor warm herbal brown sugar grass jelly, peanut ice cream rolls, or famous Ay-Chung rice flour noodles.",
+            foodZH: "打卡西门町必排队吃一碗热腾腾加辣的阿宗面线，或来一份香浓的炭烤骰子牛肉块。"
+          },
+          {
+            type: "activity",
+            time: "20:40",
+            titleEN: "Night Market Safari: Nanya Night Market Food Tour",
+            titleZH: "夜行高潮：板桥南雅夜市 · 骨灰级吃货美食大扫荡",
+            durationEN: "⏱️ Shift duration: 15 mins close drive from Tucheng center",
+            durationZH: "⏱️ 车程：从土城下榻点附近驱车 15 分钟直达夜市地标大门",
+            shoppingEN: "Pick up quirky cell phone charms, cheap trendy accessories, and retro local games items.",
+            shoppingZH: "夜市路边摊挂满了千奇百怪的潮流手机壳、创意情侣饰品与伴手礼小玩意儿。",
+            foodEN: "Must devour legendary local stinky tofu, crispy sesame oil chicken soup, and flame-grilled black pepper beef cubes!",
+            foodZH: "暴走夜市：必点香脆多汁的現炸臭豆腐、麻油鸡，以及在大火中熊熊炙烧、外焦里嫩的火焰骰子和牛！"
           }
         ]
       },
@@ -341,15 +451,51 @@
         timeline: [
           {
             type: "activity",
-            time: "10:00",
-            titleEN: "Taipei Chengzhong Market & Ximending District Shopping",
-            titleZH: "台北城中市场探秘 & 西门町潮流时尚大扫货",
-            durationEN: "⏱️ Easy walking distance or swift inner-city driver drop-off.",
-            durationZH: "⏱️ 交通：酒店出发极近，可步行或由包车平稳送抵，行李放车内无顾虑。",
-            shoppingEN: "Buy high-quality Taiwan dynamic design lifestyle stationery, regional masks, and Chia Te pineapple cakes.",
-            shoppingZH: "扫货清单：重点突击佳德凤梨酥、糖村牛轧糖，以及西门町各大药妆店的超值限定护肤面膜。",
-            foodEN: "Try legendary Ay-Chung Flour-Rice Noodles, Lao Wang Beef Noodles, or modern dynamic cheese teas.",
-            foodZH: "午餐推荐：必吃名满天下的阿宗面线（加点乌醋和特制辣酱）、老王红烧大块牛肉面，或排队来一杯人气芝士奶盖茶。"
+            time: "09:00",
+            titleEN: "Morning Walk from Tucheng & Nostalgic Jiufen Old Street Tour",
+            titleZH: "从土城元气出发 ---- 徜徉九份老街山城（千与千寻梦幻灵感地）",
+            durationEN: "⏱️ Highway Journey: Approx 55 mins structured private charter drive",
+            durationZH: "⏱️ 车程：从土城基地上车，全家吹着冷气平稳行驶 55 分钟直达九份山脚下",
+            shoppingEN: "Buy custom therapeutic high-mountain oolong tea, hand-painted mini lanterns, and premium ginger tea bricks.",
+            shoppingZH: "必买九份老街限定的阿原肥皂、精装台湾高山冷泡茶茶叶，以及纯手工雕刻的复古木梳。",
+            foodEN: "Must eat chewy Lai Ah Po taro balls, sweet mugwort cake (Caozai Guo), and traditional Taiwan beef meatball soup.",
+            foodZH: "美食推荐：排队打卡赖阿婆芋圆（冷热双绝），顺道尝尝古早味红糟肉圆与咬劲十足的黑猪肉贡丸汤。"
+          },
+          {
+            type: "activity",
+            time: "13:00",
+            titleEN: "Shifen Waterfall Spectacular & Shifen Old Street Lantern Release",
+            titleZH: "壮丽十分瀑布大奇观 & 十分老街铁道天灯祈福仪式",
+            durationEN: "⏱️ Mountain Transit: 30 mins drive from Jiufen",
+            durationZH: "⏱️ 车程：两处景点间山路包车行驶约 30 分钟，行李安稳锁在后备箱",
+            shoppingEN: "Buy retro miniature sky lantern keychains with custom led light blessings written on them.",
+            shoppingZH: "必买写满「阖家平安」、「财源滚滚」的迷你十分铁道发光天灯小钥匙扣挂件。",
+            foodEN: "Try delicious BBQ chicken wings stuffed with seasoned egg-fried rice or traditional Taiwan grilled sausages.",
+            foodZH: "超级美味：强推必吃排队王「溜哥烧烤鸡翅包饭」，鸡翅外皮酥脆，里面塞满了香喷喷的蛋炒饭！"
+          },
+          {
+            type: "activity",
+            time: "16:30",
+            titleEN: "Taipei 101 Photo Spot & Sisi Nanchun Cultural Village",
+            titleZH: "台北101高空地标同框绝美机位 & 四四南村文艺慢行",
+            durationEN: "⏱️ Drive Duration: 45 mins smooth drive back into Taipei basin",
+            durationZH: "⏱️ 车程：从新北平稳驶回台北市核心商业区约 45 分钟",
+            shoppingEN: "Pick up iconic Taipei 101 tower design thermal bottles, localized luxury items, and Chia Te pineapple cakes.",
+            shoppingZH: "可在商圈购齐享誉全台的佳德凤梨酥、微热山丘礼盒以及101限定文创文具纪念品。",
+            foodEN: "Indulge in famous Ding Tai Fung steamed soup dumplings (Xiao Long Bao) or high-grade beef noodles nearby.",
+            foodZH: "尝鲜推荐：可直接在101地下一楼大啖大名鼎鼎的鼎泰丰蟹粉小笼包或红烧半筋半肉顶级牛肉面。"
+          },
+          {
+            type: "activity",
+            time: "18:00",
+            titleEN: "Premium Culinary Dinner: Jiyuan Sichuan Chicken Soup Supreme",
+            titleZH: "殿堂级晚宴：骥园川菜餐厅 · 全台最强浓郁砂锅鸡汤盛宴",
+            durationEN: "⏱️ Local City Transit: 10 mins close drive from Taipei 101",
+            durationZH: "⏱️ 车程：市中心行驶 10 分钟即达，司机平稳送抵，无需全家疲惫找路",
+            shoppingEN: "Order insulated take-home vacuum packs of gourmet broth if requested pre-sale.",
+            shoppingZH: "可向店家询问是否有精装干货海味伴手礼盒可以随手带回马国送礼。",
+            foodEN: "CRITICAL MEAL: Savor the legendary thick golden collagen chicken soup boiled for 12 hours, paired with sizzling scallion pancakes and dry-fried string beans with premium minced beef!",
+            foodZH: "舌尖狂欢：这可是被誉为台北第一的神级砂锅鸡汤！汤头呈金黄色，喝一口满嘴胶原蛋白，配上现烙香脆的葱油饼、以及肉末香浓四溢的干煸四季豆炒高级牛碎肉，全家人绝对连连赞叹！"
           }
         ]
       },
@@ -359,51 +505,74 @@
         labelZH: "6月2日",
         timeline: [
           {
+            type: "activity",
+            time: "09:30",
+            titleEN: "Cultural Morning Visit: Historic Lungshan Temple",
+            titleZH: "清晨祈福：万华艋舺龙山寺 · 百年古刹虔诚朝圣",
+            durationEN: "⏱️ Drive Duration: 20 mins smooth urban charter drive from Tucheng",
+            durationZH: "⏱️ 车程：市区舒适包车约 20 分钟送达，老人小孩空手出行最轻松",
+            shoppingEN: "Buy beautifully crafted temple fortune amulets (御守) for comprehensive protection, health, and academic wealth.",
+            shoppingZH: "必买极其精致且灵验的龙山寺祈福御守（健康守、招财守、平安守），带给亲戚朋友最棒的祝福。",
+            foodEN: "Cool down with local traditional herbal grass teas or a warm bowl of sweet peanut soup nearby.",
+            foodZH: "经典古早味：推荐到老字号摊位喝一杯清热退火的纯正青草茶，或来一碗甜丝丝、软糯细腻的古法花生汤。"
+          },
+          {
+            type: "activity",
+            time: "11:00",
+            titleEN: "Ximending Trend District Final Photo Call & Gift Hunt",
+            titleZH: "终极补货：西门町潮流商圈拍照打卡 & 伴手礼大搜罗",
+            durationEN: "⏱️ Swift proximity transfer: 7 mins drive or close walk",
+            durationZH: "⏱️ 车程：行驶约 7 分钟，随后全家开启最后两小时自由活动",
+            shoppingEN: "Last call for premium Chia Te pastries, Sugar Spice nougats, and beautiful limited drugstore items.",
+            shoppingZH: "疯狂补货阶段：买足糖村牛轧糖、老字号太阳饼，查漏补缺各大彩妆美妆好物。",
+            foodEN: "Relish final bowls of Lao Wang Braised Beef Noodles or savor delicious crispy modern beef cheese toast combos.",
+            foodZH: "离台最后一餐：高规格安排一碗老王红烧大块原汁牛肉面，肉质软糯，汤头鲜美至极，完美犒劳胃口！"
+          },
+          {
             type: "flight",
-            time: "15:45",
-            titleEN: "Final Departure Flights back to Kuala Lumpur (KUL)",
-            titleZH: "圆满结束行程 · 搭乘国际航班返回吉隆坡",
-            durationEN: "⏱️ Highway Transfer: 45 mins to Taoyuan Airport Terminal",
-            durationZH: "⏱️ 车程：包车提前 3 小时直达桃园国际机场，司机协助卸载全部行李箱",
+            time: "13:00",
+            titleEN: "Depart Central Taipei to Taoyuan International Airport (TPE)",
+            titleZH: "专属大包车启程：前往桃园国际机场 (TPE) 准备回国",
+            durationEN: "⏱️ Highway Transfer: 1h drive time, arriving 2.5h prior to flight departure",
+            durationZH: "⏱️ 车程：舒适大包车一路平稳高速直达，所有沉重行李和手信整齐码在后备箱，全程不劳累",
             isFlight: true,
             flightDetails: {
-              carrier: "Malaysia Airlines / Tigerair",
-              depTime: "15:45",
-              terminal: "Taoyuan Int'l T1",
-              gate: "A9",
-              statusEN: "On Time / Gate Open",
-              statusZH: "准点 / 开放登机"
+              carrier: "Transit Int'l Connect via HKG",
+              depTime: "16:30",
+              terminal: "Taoyuan T1 Hall 3",
+              gate: "A7",
+              statusEN: "Gate Open / Scheduled",
+              statusZH: "准点 / 准备登机"
             },
-            shoppingEN: "Final duty-free sweets, premium Kavalan Single Malt Taiwanese Whisky, and local pastries.",
-            shoppingZH: "机场免税店终极补货：推荐台湾顶级噶玛兰 (Kavalan) 威士忌、微热山丘凤梨酥及太阳饼。",
-            foodEN: "Enjoy a premium warm Taiwanese beef noodle broth soup or classic braised pork rice combos at the terminal dining lounge.",
-            foodZH: "登机前饱腹一顿：在机场美食广场来一碗热气腾腾的台式原汁牛肉面套餐，为旅程画上完美句号。"
+            shoppingEN: "Final duty free premium purchase of Kavalan single malt Taiwanese whisky and high mountain tea bricks.",
+            shoppingZH: "机场免税店终极冲刺：必买世界冠军「台湾噶玛兰 (Kavalan) 单一麦芽威士忌」与高档阿里山冷泡茶叶。",
+            foodEN: "Enjoy premium hot bowls of Taiwanese beef noodle noodle broth or traditional warm soup bowls inside the terminal lounge.",
+            foodZH: "登机前饱腹一顿：在美食广场来一碗热气腾腾的台式牛肉面套餐，热汤下肚，全家舒舒服服登机飞往香港转机回吉隆坡！"
           }
         ]
       }
     ];
 
-    // --- INTERFACE DICTIONARY FOR INSTANT TRANSLATION ---
     const uiDictionary = {
       EN: {
-        appTitle: "Family Travel App Dashboard",
+        appTitle: "Friend's Family Travel App Dashboard",
         weatherTitle: "Live Weather Updates",
         cityOkinawa: "Okinawa (冲绳)",
         cityTaipei: "Taipei (台北)",
         langBtn: "中文",
         buyTitle: "🛍️ What to Buy / Shopping Focus",
         foodTitle: "🍲 Food Suggestion",
-        flightBoardTitle: "FLIGHT TERMINAL CONTROLLER",
+        flightBoardTitle: "LIVE FLIGHT TERMINAL CONTROLLER",
         schDep: "Sch. Departure",
         terminal: "Terminal",
         gate: "Gate",
         status: "Live Status"
       },
       ZH: {
-        appTitle: "家族旅行专属随身仪表盘",
+        appTitle: "闺蜜家族旅行专属随身仪表盘",
         weatherTitle: "实况天气同步更新",
-        cityOkinawa: "日本冲绳",
-        cityTaipei: "台湾台北",
+        cityOkinawa: "日本冲绳那霸",
+        cityTaipei: "台湾台北新北",
         langBtn: "English",
         buyTitle: "🛍️ 必买推荐 / 购物焦点",
         foodTitle: "🍲 美食推荐",
@@ -415,34 +584,25 @@
       }
     };
 
-    // --- TRANSLATION TOGGLE LOGIC ---
     function toggleLanguage() {
       currentLang = (currentLang === 'EN') ? 'ZH' : 'EN';
       document.getElementById('lang-btn-text').innerText = uiDictionary[currentLang].langBtn;
-      
-      // Update persistent layout elements
       document.getElementById('ui-app-title').innerText = uiDictionary[currentLang].appTitle;
       document.getElementById('ui-weather-title').innerText = uiDictionary[currentLang].weatherTitle;
       document.getElementById('ui-city-okinawa').innerText = uiDictionary[currentLang].cityOkinawa;
       document.getElementById('ui-city-taipei').innerText = uiDictionary[currentLang].cityTaipei;
-
-      // Re-render variable layouts while maintaining chosen view states
       renderDayTabs();
       renderTimeline(currentDayIndex);
     }
 
-    // --- ASYNC LIVE WEATHER FETCH ENGINE (Open-Meteo) ---
     async function fetchLiveWeather() {
       try {
-        // Coordinates: Okinawa (Naha) ~26.21, 127.68 | Taipei ~25.03, 121.56
         const okinawaUrl = "https://api.open-meteo.com/v1/forecast?latitude=26.2125&longitude=127.6809&current_weather=true";
         const taipeiUrl = "https://api.open-meteo.com/v1/forecast?latitude=25.0330&longitude=121.5654&current_weather=true";
-
         const [resOki, resTpe] = await Promise.all([
           fetch(okinawaUrl).then(r => r.json()),
           fetch(taipeiUrl).then(r => r.json())
         ]);
-
         if (resOki && resOki.current_weather) {
           document.getElementById('okinawa-temp').innerText = `${Math.round(resOki.current_weather.temperature)}°C`;
           document.getElementById('okinawa-status').innerText = getWeatherStatusString(resOki.current_weather.weathercode);
@@ -452,44 +612,35 @@
           document.getElementById('taipei-status').innerText = getWeatherStatusString(resTpe.current_weather.weathercode);
         }
       } catch (error) {
-        console.error("Weather network pipeline error, applying default fallbacks:", error);
-        // Fallbacks for May-June warm season weather simulation
-        document.getElementById('okinawa-temp').innerText = "27°C";
-        document.getElementById('okinawa-status').innerText = currentLang === 'EN' ? "Partly Cloudy" : "多云偏晴";
-        document.getElementById('taipei-temp').innerText = "29°C";
-        document.getElementById('taipei-status').innerText = currentLang === 'EN' ? "Mild Humidity" : "晴朗舒适";
+        document.getElementById('okinawa-temp').innerText = "26°C";
+        document.getElementById('okinawa-status').innerText = currentLang === 'EN' ? "Breezy" : "舒适清爽";
+        document.getElementById('taipei-temp').innerText = "28°C";
+        document.getElementById('taipei-status').innerText = currentLang === 'EN' ? "Mild Clouds" : "晴朗微风";
       }
     }
 
     function getWeatherStatusString(code) {
-      if (code === 0) return currentLang === 'EN' ? "Clear Sky" : "晴空万里";
+      if (code === 0) return currentLang === 'EN' ? "Sunny" : "晴空万里";
       if (code <= 3) return currentLang === 'EN' ? "Partly Cloudy" : "多云间晴";
-      if (code <= 65) return currentLang === 'EN' ? "Moderate Rain" : "阵雨局部有雨";
-      return currentLang === 'EN' ? "Stable Dynamic Conditions" : "天气温和";
+      return currentLang === 'EN' ? "Mild Breeze" : "天气温和";
     }
 
-    // --- RENDERING GENERATORS ---
     function renderDayTabs() {
       const tabsContainer = document.getElementById('day-tabs-container');
       tabsContainer.innerHTML = '';
-
       itineraryData.forEach((day, index) => {
         const isSelected = (index === currentDayIndex);
         const label = (currentLang === 'EN') ? day.labelEN : day.labelZH;
-        
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = `px-4 py-2 text-xs font-semibold rounded-full shrink-0 transition-all cursor-pointer ${
-          isSelected 
-            ? 'bg-slate-900 text-white shadow-sm font-bold' 
-            : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+          isSelected ? 'bg-slate-900 text-white shadow-sm font-bold' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
         }`;
         btn.innerText = label;
         btn.onclick = () => {
           currentDayIndex = index;
           renderDayTabs();
           renderTimeline(index);
-          // Center selected badge inside top header container view
           document.getElementById('active-date-badge').innerText = day.date;
         };
         tabsContainer.appendChild(btn);
@@ -499,7 +650,6 @@
     function renderTimeline(dayIndex) {
       const container = document.getElementById('timeline-container');
       container.innerHTML = '';
-      
       const dayData = itineraryData[dayIndex];
       const dict = uiDictionary[currentLang];
 
@@ -509,22 +659,18 @@
         const shoppingText = (currentLang === 'EN') ? item.shoppingEN : item.shoppingZH;
         const foodText = (currentLang === 'EN') ? item.foodEN : item.foodZH;
 
-        // Base card scaffolding using clean card containers highlighted by a subtle left vertical accent gradient bar
         const card = document.createElement('div');
         card.className = "bg-white border border-slate-100 rounded-xl shadow-xs overflow-hidden flex relative pl-3 py-4 pr-4 transition-all";
         
-        // Vertical Left Accent Bar Construction
         const accentBar = document.createElement('div');
         accentBar.className = `absolute top-0 left-0 bottom-0 w-1.5 ${
           item.isFlight ? 'bg-gradient-to-b from-amber-400 to-orange-500' : 'bg-gradient-to-b from-indigo-500 to-teal-400'
         }`;
         card.appendChild(accentBar);
 
-        // Core Inner Card Body Elements
         const body = document.createElement('div');
         body.className = "w-full space-y-3";
 
-        // Time + Title Segment
         const titleRow = document.createElement('div');
         titleRow.className = "flex items-start gap-2.5";
         
@@ -540,17 +686,14 @@
         titleRow.appendChild(headingElement);
         body.appendChild(titleRow);
 
-        // Travel Distance/Duration Badge placement directly below Title
         const badgeDiv = document.createElement('div');
         badgeDiv.className = "inline-flex items-center gap-1.5 bg-indigo-50 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-lg";
         badgeDiv.innerHTML = `<span>${durationText}</span>`;
         body.appendChild(badgeDiv);
 
-        // CONDITIONAL FLIGHT LIVE TERMINAL MODULE
         if (item.isFlight && item.flightDetails) {
           const f = item.flightDetails;
           const liveStatusText = (currentLang === 'EN') ? f.statusEN : f.statusZH;
-          
           const flightBoard = document.createElement('div');
           flightBoard.className = "bg-slate-950 border border-slate-800 text-amber-400 font-mono text-[11px] rounded-lg p-3 space-y-2 shadow-inner";
           flightBoard.innerHTML = `
@@ -580,11 +723,9 @@
           body.appendChild(flightBoard);
         }
 
-        // TWO DYNAMIC BEAUTIFULLY STRUCTURED TARGET BOXES (Zero Senior Notes)
         const targetsGrid = document.createElement('div');
         targetsGrid.className = "grid grid-cols-1 gap-2 pt-1";
 
-        // Box A: What to Buy / Shopping Target
         const buyBox = document.createElement('div');
         buyBox.className = "bg-amber-50/60 border border-amber-100/70 rounded-lg p-2.5";
         buyBox.innerHTML = `
@@ -592,7 +733,6 @@
           <p class="text-xs text-slate-600 leading-relaxed font-medium">${shoppingText}</p>
         `;
 
-        // Box B: Food Suggestion Target (Includes Beef recommendations with family approval)
         const foodBox = document.createElement('div');
         foodBox.className = "bg-emerald-50/60 border border-emerald-100/70 rounded-lg p-2.5";
         foodBox.innerHTML = `
@@ -609,13 +749,10 @@
       });
     }
 
-    // --- LIFE CYCLE INITIALIZATION ---
     window.addEventListener('DOMContentLoaded', () => {
       renderDayTabs();
       renderTimeline(currentDayIndex);
       fetchLiveWeather();
-      
-      // Auto refresh weather metrics every 5 minutes to stay accurate
       setInterval(fetchLiveWeather, 300000);
     });
   </script>
