@@ -75,7 +75,6 @@
     let currentLang = 'EN'; 
     let currentDayIndex = 0; 
 
-    // Complete rich text database layout mapping
     const itineraryData = [
       {
         date: "26 May 2026",
@@ -88,32 +87,32 @@
             titleEN: "Head to Airport Terminal (KLIA2)",
             titleZH: "从市区出发前往吉隆坡第二航站楼 (KLIA2)",
             durationEN: "⏱️ Travel Time: ~1h • Private Transfer",
-            durationZH: "⏱️ 预计车程：约 1 小时 • 司机接驳",
-            shoppingEN: "Collect pre-booked mobile internet data SIM cards or travel accessories.",
-            shoppingZH: "可在机场柜台领取预订的移动上网随身卡，检查行李备用物。",
-            foodEN: "Grab dynamic local Malaysian food bites or coffee at departure terminal.",
+            durationZH: "⏱️ 预计车程：约 1 小时 • 汽车接驳",
+            shoppingEN: "Collect pre-booked mobile data SIM cards or international eSIM credentials.",
+            shoppingZH: "可在机场柜台领取预订的移动上网随身卡，检查随身战利品背包。",
+            foodEN: "Grab delicious local Nasi Lemak or warm coffee at departure terminal.",
             foodZH: "出发前可前往美食大厅享用一份经典的本地椰浆饭或南洋风味烤吐司咖啡。"
           },
           {
             type: "flight",
             time: "22:45",
-            titleEN: "Flight Connect to Singapore Changi Hub",
+            titleEN: "Flight Departure to Singapore Changi (SIN)",
             titleZH: "航线起飞：飞往新加坡樟宜国际机场",
             durationEN: "⏱️ Air Travel Duration: 1h 20m",
             durationZH: "⏱️ 预计飞行时间：1 小时 20 分钟",
             isFlight: true,
             flightDetails: {
-              number: "TR453 / MH616", // Provide flight numbers to alter instantly
-              carrier: "Regional Transit Connection",
+              number: "TR467", 
+              carrier: "Scoot Air",
               depTime: "22:45",
               terminal: "KLIA2 T2",
               gate: "L8",
               statusEN: "Scheduled",
-              statusZH: "准备就绪 / 准点"
+              statusZH: "计划中 / 准点"
             },
             shoppingEN: "Perfect time to browse regional inflight catalog options.",
             shoppingZH: "可在机上翻阅最新的免税零售商品目录预购伴手礼。",
-            foodEN: "Light snacks box and complimentary drinks.",
+            foodEN: "Light snacks box and complimentary drinks available on board.",
             foodZH: "机上将供应轻便冷餐盒与清凉饮品，建议闭眼小憩放松。"
           }
         ]
@@ -132,7 +131,7 @@
             durationZH: "⏱️ 中转等待时间：约 2 小时 10 分钟",
             shoppingEN: "Explore Changi's award-winning duty-free beauty and skincare counters.",
             shoppingZH: "樟宜机场免税商圈深夜持续营业，可选购大牌药妆或护肤品特惠套组。",
-            foodEN: "Enjoy sweet local Kaya toast or warm savory local soups at 24h terminal stalls.",
+            foodEN: "Enjoy sweet local Kaya toast or warm savory soups at 24h terminal stalls.",
             foodZH: "夜宵推荐去24小时美食区来一碗香浓火辣的星洲叻沙或胡椒白汤肉骨茶。"
           },
           {
@@ -144,17 +143,17 @@
             durationZH: "⏱️ 跨夜航程：约 6 小时 20 分钟",
             isFlight: true,
             flightDetails: {
-              number: "TR808", 
-              carrier: "Okinawa Express Direct",
+              number: "TR834", 
+              carrier: "Scoot Air",
               depTime: "02:15",
-              terminal: "Changi T2 Hub",
+              terminal: "Changi T2",
               gate: "F34",
               statusEN: "Boarding",
               statusZH: "准点 / 开放登机"
             },
             shoppingEN: "Get plenty of rest to prepare for a thrilling self-drive island arrival.",
             shoppingZH: "建议在舒适宽敞的机舱内闭眼沉睡，为即将展开的冲绳大探险充沛电力！",
-            foodEN: "Warm morning breakfast platter served pre-landing.",
+            foodEN: "Warm morning breakfast platter served pre-landing before touchdown.",
             foodZH: "降落前一小时机舱将自动唤醒，为您呈上一份热腾腾的香肠煎蛋卷晨间早餐。"
           },
           {
@@ -262,9 +261,9 @@
           },
           {
             type: "activity",
-            time: "10:00",
+            time: "10:15",
             titleEN: "Okinawa Churaumi Aquarium 🐋 (Ocean Kingdom World Tour)",
-            titleZH: "冲绳美丽海水族馆 🐋 · 惊艳探索梦幻黑潮之海大水槽与海豚表演",
+            titleZH: "冲绳美丽海水族馆 🐋 · 惊艳探索梦幻黑潮之海大水槽与海豚秀",
             durationEN: "⏱️ Distance Highway Ride: 1h 45m driving to Motobu Depot",
             durationZH: "⏱️ 车程：由中向北自驾平稳前行 1 小时 45 分钟，全室内空调长辈最舒适",
             shoppingEN: "Massive official souvenir haul: Adorable whale shark plush pillows, marine theme accessories, and beautiful capsule toy machine sets.",
@@ -347,7 +346,7 @@
             durationEN: "⏱️ Convenient Arrival: Secure parking spaces located directly adjacent to venue",
             durationZH: "⏱️ 交通：摄影店门前即有便利停车场，全家空手入店换装最轻松",
             shoppingEN: "Purchase custom Ryukyu handmade textile hair pin bars, folding fans, and colorful woven pouches.",
-            shoppingZH: "值得入手极具纪念意义的传统染织工艺发饰、复古纸扇、以及纯手工缝制的和风小零钱包。",
+            shoppingZH: "值得入手极极纪念意义的传统染织工艺发饰、复古纸扇、以及纯手工缝制的和风小零钱包。",
             foodEN: "Enjoy small local traditional sweet brown sugar candy offered by the studio staff.",
             foodZH: "换装时可品尝店家贴心提供的冲绳古法手工黑糖硬糖，清甜润喉。"
           },
@@ -372,7 +371,7 @@
             durationZH: "⏱️ 车程：行驶约 20 分钟靠泊，全室内双层海鲜大市场冷气充足",
             shoppingEN: "Snag premium dried premium seafood assets, localized hot chili pepper oils, and kelp bundles.",
             shoppingZH: "可在这里带上几瓶冲绳爆火、香辣过瘾的「泡盛古酒渍岛辣椒油」或极品深海昆布干货。",
-            foodEN: "CRITICAL LUNCH: Pick giant fresh lobsters downstairs and cook upstairs! Feast on thick juicy high grade marbled Wagyu dynamic teppanyaki beef cuts!",
+            foodEN: "CRITICAL LUNCH: Pick giant fresh lobsters downstairs and cook upstairs! Feast on thick juicy high grade marbled Wagyu teppanyaki beef cuts!",
             foodZH: "海鲜与牛肉狂欢：在一楼亲自挑选海鲜直奔二楼现做！更要大口享受炭火炙烧、雪花密布的顶级高档日本和牛烤肉排，鲜美多汁！"
           },
           {
@@ -386,42 +385,6 @@
             shoppingZH: "特产圣地：狂淘卡通联名小挂件、冲绳狮子创意陶艺摆件、以及一箱箱包装精美的红薯挞伴手礼盒。",
             foodEN: "Enjoy snacks along the way: Try hot golden sweet potato pies or sizzling dynamic street steaks.",
             foodZH: "沿街大口吃：可以打卡著名的冰镇盐屋海盐冰淇淋，咸甜交织口感一级棒。"
-          },
-          {
-            type: "activity",
-            time: "16:00",
-            titleEN: "DFS T Galleria Okinawa Premium Luxury Shopping Call",
-            titleZH: "DFS 旗下冲绳 T 广场 · 环球免税奢侈品与美妆名包大巡礼 (可选空余项目)",
-            durationEN: "⏱️ Drive Duration: 12 mins swift urban cruise",
-            durationZH: "⏱️ 车程：市区自驾前往约 12 分钟，超大室内免税商圈停车场庞大",
-            shoppingEN: "Incredible tax-free rates on high-end perfume lines, luxury handbags, premium watches, and designer fashion cosmetics.",
-            shoppingZH: "奢品天堂：这里是世界顶奢箱包、高档名表、以及大牌免税美妆限定礼盒的集中营！",
-            foodEN: "Sip on signature premium gourmet iced drinks or chocolate freezes inside the gallery cafe.",
-            foodZH: "奢华茶歇：可在商场咖啡厅惬意来一杯冰镇咖啡，或者品尝香浓顺滑的巧克力冰沙。"
-          },
-          {
-            type: "activity",
-            time: "18:30",
-            titleEN: "Refuel Private Vehicle & Smooth Return to Bee Rent Chatan Depot",
-            titleZH: "自驾行程完美收官 ---- 车辆加满油顺畅返回 Bee Rent 北谷店还车",
-            durationEN: "⏱️ Return Logistics: 40 mins cruise back north to Chatan base",
-            durationZH: "⏱️ 车程：沿主干道北上行驶 40 分钟还车，必须要提前于 18:30 前完成全部手续",
-            shoppingEN: "Confirm all bags are retrieved from the vehicle seat pockets and trunk matrix.",
-            shoppingZH: "下车前务必仔细检查车门储物格和宽大的后备箱，确保没有任何一件战利品遗漏。",
-            foodEN: "Grab refreshing cooling dynamic juices from depot vending modules.",
-            foodZH: "还车后全家顿感轻松，喝一口冰镇果汁汽水，全家轻装散步前往海景餐厅。"
-          },
-          {
-            type: "activity",
-            time: "19:00",
-            titleEN: "Farewell Dinner Festivity at American Village Coastal Boardwalk",
-            titleZH: "告别晚宴：美国村海滨唯美落日晚霞景观餐厅聚餐",
-            durationEN: "⏱️ Walk Distance: Short 5 mins breezy seaside stroll to dining tables",
-            durationZH: "⏱️ 交通：还车点步行 5 分钟即达，面向绝美的冲绳浪漫落日余晖海景",
-            shoppingEN: "Snag glow-in-the-dark beach accessories or retro island souvenirs from coastal street crafts.",
-            shoppingZH: "可以顺手在海滨长廊的文创市集买几件充满艺术气息的手作荧光海滩贝壳挂件。",
-            foodEN: "CRITICAL DINNER FEAST: Indulge in sizzling thick beef steaks, premium fresh seafood platters, or warm comforting ramen noodles at local hot stores!",
-            foodZH: "饕餮海岛夜：在这个绝美落日夜，痛快大吃一顿香气扑鼻的碳烤美式厚牛排、超级海鲜拼盘，或者前往超人气的拉面店大快朵颐！"
           }
         ]
       },
@@ -506,8 +469,8 @@
             durationZH: "⏱️ 交通：清晨 06:10 打车 12 分钟速达那霸机场，开启国际航段",
             isFlight: true,
             flightDetails: {
-              number: "IT231", 
-              carrier: "Cross-Strait Air Connect",
+              number: "MM921", 
+              carrier: "Peach Aviation",
               depTime: "08:10",
               terminal: "Naha Int'l L2",
               gate: "43",
@@ -526,7 +489,7 @@
             titleZH: "顺畅抵达台湾台北 & 专属包车直奔新北土城世界花園",
             durationEN: "⏱️ Highway Transit: 50 mins from Taoyuan Airport",
             durationZH: "⏱️ 车程：大件行李平稳锁在车尾箱，机场直驱土城约 50 分钟",
-            shoppingEN: "Get local Taiwan FarEasTone internet SIM cards and EasyCards at airport kiosk.",
+            shoppingEN: "Get local Taiwan internet SIM cards and EasyCards at airport kiosk.",
             shoppingZH: "可在接机大厅办理高速全线无限制上网卡，顺手买几张可爱联名版悠游卡。",
             foodEN: "Grab a refreshing iced Taiwanese classic milk tea directly upon arrival.",
             foodZH: "落地的第一口快乐：马上安排一杯宝岛纯正、加满珍珠的大杯波霸奶茶。"
@@ -662,18 +625,40 @@
             durationZH: "⏱️ 车程：舒适大包车一路平稳高速直达，所有沉重行李和手信整齐码在后备箱，全程不劳累",
             isFlight: true,
             flightDetails: {
-              number: "HX253 / MH73", 
-              carrier: "Transit Connect via HKG Hub",
-              depTime: "16:30",
-              terminal: "Taoyuan T1 Hall 3",
-              gate: "A9",
-              statusEN: "On Time / Gate Open",
-              statusZH: "准点 / 开放登机"
+              number: "CX421", 
+              carrier: "Cathay Pacific",
+              depTime: "13:00",
+              terminal: "Taoyuan T1",
+              gate: "B5",
+              statusEN: "On Time",
+              statusZH: "准点"
             },
             shoppingEN: "Final duty free premium purchase of Kavalan single malt Taiwanese whisky and high mountain tea bricks.",
             shoppingZH: "机场免税店终极冲刺：必买世界冠军「台湾噶玛兰威士忌」与高档阿里山冷泡茶叶。",
-            foodEN: "Enjoy premium hot bowls of Taiwanese beef noodle soup broth inside the terminal lounge.",
-            foodZH: "登机前饱腹一顿：在美食广场来一碗热气腾腾的台式牛肉面套餐，热汤下肚，全家舒舒服服登机飞往香港转机回吉隆坡！"
+            foodEN: "Enjoy premium hot bowls of Taiwanese beef noodle soup broth inside the terminal lounge before boarding.",
+            foodZH: "登机前饱腹一顿：在美食广场来一碗热气腾腾的台式牛肉面套餐，热汤下肚，准备飞往香港中转！"
+          },
+          {
+            type: "flight",
+            time: "21:30",
+            titleEN: "Hong Kong Hub Connection to Kuala Lumpur (KUL)",
+            titleZH: "香港中转航班起飞：飞往吉隆坡国际机场 (KUL)",
+            durationEN: "⏱️ Night Connection Flight • Landing around 01:30 AM",
+            durationZH: "⏱️ 跨国夜航接驳 • 预计次日凌晨 01:30 顺利降落吉隆坡",
+            isFlight: true,
+            flightDetails: {
+              number: "CX733", 
+              carrier: "Cathay Pacific",
+              depTime: "21:30",
+              terminal: "Hong Kong T1",
+              gate: "Gate 28",
+              statusEN: "On Time",
+              statusZH: "准点"
+            },
+            shoppingEN: "Grab world-famous Hong Kong Jenny Bakery butter cookies or fine duty-free liquors inside the transit lounge.",
+            shoppingZH: "香港中转区最后扫货：顺手捎带珍妮曲奇小熊饼干、正牌大黄鸭文创或港式手信。",
+            foodEN: "Enjoy standard inflight multi-course dining or warm milk tea treats before arriving home.",
+            foodZH: "国泰航空机上享用高品质丰盛正餐、香浓丝袜奶茶及哈根达斯冰淇淋，舒舒服服飞抵吉隆坡。"
           }
         ]
       }
@@ -788,7 +773,6 @@
         const foodText = (currentLang === 'EN') ? item.foodEN : item.foodZH;
 
         const card = document.createElement('div');
-        // Added overflow-hidden and strict max-w boundaries to prevent the horizontal cutoff bug
         card.className = "bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden flex relative pl-3.5 py-4 pr-4 transition-all hover:shadow-md w-full max-w-full";
         
         const accentBar = document.createElement('div');
@@ -798,7 +782,6 @@
         card.appendChild(accentBar);
 
         const body = document.createElement('div');
-        // Added break-words to ensure text can never expand card width
         body.className = "w-full space-y-3 min-w-0 break-words";
 
         const titleRow = document.createElement('div');
@@ -828,7 +811,7 @@
           flightBoard.className = "bg-slate-950 border border-slate-800 text-amber-400 font-mono text-[11px] rounded-xl p-3.5 space-y-2.5 shadow-inner w-full overflow-hidden";
           flightBoard.innerHTML = `
             <div class="flex justify-between items-center text-[10px] text-slate-500 border-b border-slate-900 pb-1.5 font-sans min-w-0">
-              <span class="font-bold tracking-widest text-slate-400 truncate">✈️ CODE: ${f.number}</span>
+              <span class="font-bold tracking-widest text-slate-400 truncate">✈️ FLIGHT: ${f.number}</span>
               <span class="text-amber-500 font-black tracking-wider truncate">${f.carrier}</span>
             </div>
             <div class="grid grid-cols-2 gap-y-2.5 gap-x-4 pt-0.5 w-full">
