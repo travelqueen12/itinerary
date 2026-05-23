@@ -7,65 +7,68 @@
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2 family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; padding: 0; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    * { box-sizing: border-box !important; }
   </style>
 </head>
-<body class="bg-gradient-to-tr from-slate-100 via-indigo-50/40 to-pink-50/30 text-slate-800 antialiased min-h-screen">
+<body class="bg-gradient-to-tr from-slate-100 via-indigo-50/40 to-pink-50/30 text-slate-800 antialiased min-h-screen style='overflow-x: hidden;'">
 
-  <div class="max-w-md mx-auto bg-white min-h-screen shadow-2xl flex flex-col relative pb-12 border-x border-slate-100 overflow-x-hidden">
+  <div class="max-w-md mx-auto bg-white min-h-screen shadow-2xl flex flex-col relative pb-12 border-x border-slate-100 overflow-x-hidden w-full" style="max-width: 28rem;">
 
-    <header class="sticky top-0 z-50 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white px-4 py-3.5 shadow-lg flex items-center justify-between">
-      <div>
-        <h1 id="ui-app-title" class="text-base font-extrabold tracking-tight uppercase drop-shadow-xs">Taiwan Okinawa Trip</h1>
-        <span id="active-date-badge" class="inline-block mt-1 text-xs bg-white/20 backdrop-blur-md px-2.5 py-0.5 rounded-full font-bold tracking-wide border border-white/10">
+    <header class="sticky top-0 z-50 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white px-4 py-3.5 shadow-lg flex items-center justify-between w-full overflow-hidden">
+      <div class="min-w-0 flex-1">
+        <h1 id="ui-app-title" class="text-base font-extrabold tracking-tight uppercase drop-shadow-xs truncate">Taiwan Okinawa Trip</h1>
+        <span id="active-date-badge" class="inline-block mt-1 text-xs bg-white/20 backdrop-blur-md px-2.5 py-0.5 rounded-full font-bold tracking-wide border border-white/10 whitespace-nowrap">
           26 May 2026
         </span>
       </div>
       
-      <button onclick="toggleLanguage()" class="bg-white/10 hover:bg-white/20 active:scale-95 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-xl text-xs font-bold tracking-wider flex items-center gap-1.5 transition-all cursor-pointer">
+      <button onclick="toggleLanguage()" class="bg-white/10 hover:bg-white/20 active:scale-95 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-xl text-xs font-bold tracking-wider flex items-center gap-1.5 transition-all cursor-pointer shrink-0">
         🌐 <span id="lang-btn-text">中文</span>
       </button>
     </header>
 
-    <main class="p-4 space-y-4 flex-1 w-full max-w-full">
+    <main class="p-4 space-y-4 flex-1 w-full max-w-full overflow-hidden">
 
-      <section class="bg-gradient-to-br from-slate-900 via-indigo-950 to-purple-950 text-white rounded-2xl p-4 shadow-xl relative overflow-hidden border border-white/5">
+      <section class="bg-gradient-to-br from-slate-900 via-indigo-950 to-purple-950 text-white rounded-2xl p-4 shadow-xl relative overflow-hidden border border-white/5 w-full">
         <div class="absolute -right-6 -top-6 w-24 h-24 bg-pink-500/10 rounded-full blur-xl"></div>
         
-        <div class="flex justify-between items-center mb-3 relative z-10">
-          <h2 id="ui-weather-title" class="text-xs font-extrabold uppercase tracking-widest text-indigo-300">Live Weather Updates / 实时天气</h2>
-          <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-mono font-bold flex items-center gap-1 border border-emerald-500/30">
+        <div class="flex justify-between items-center mb-3 relative z-10 w-full">
+          <h2 id="ui-weather-title" class="text-xs font-extrabold uppercase tracking-widest text-indigo-300 truncate">Live Weather Updates / 实时天气</h2>
+          <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-mono font-bold flex items-center gap-1 border border-emerald-500/30 shrink-0">
             <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span> Live Sync
           </span>
         </div>
         
-        <div class="grid grid-cols-2 gap-3 relative z-10">
-          <div class="bg-white/5 border border-white/10 rounded-xl p-3 flex flex-col justify-between backdrop-blur-xs">
-            <span id="ui-city-okinawa" class="text-xs font-bold text-slate-300 flex items-center gap-1">🇯🇵 Okinawa</span>
+        <div class="grid grid-cols-2 gap-3 relative z-10 w-full">
+          <div class="bg-white/5 border border-white/10 rounded-xl p-3 flex flex-col justify-between backdrop-blur-xs min-w-0">
+            <span id="ui-city-okinawa" class="text-xs font-bold text-slate-300 flex items-center gap-1 truncate">🇯🇵 Okinawa</span>
             <div class="flex items-baseline gap-1 my-1">
               <span id="okinawa-temp" class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-orange-400">--°C</span>
             </div>
-            <span id="okinawa-status" class="text-[11px] text-slate-400 font-medium">Updating...</span>
+            <span id="okinawa-status" class="text-[11px] text-slate-400 font-medium truncate">Updating...</span>
           </div>
           
-          <div class="bg-white/5 border border-white/10 rounded-xl p-3 flex flex-col justify-between backdrop-blur-xs">
-            <span id="ui-city-taipei" class="text-xs font-bold text-slate-300 flex items-center gap-1">🇹🇼 Taipei</span>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-3 flex flex-col justify-between backdrop-blur-xs min-w-0">
+            <span id="ui-city-taipei" class="text-xs font-bold text-slate-300 flex items-center gap-1 truncate">🇹🇼 Taipei</span>
             <div class="flex items-baseline gap-1 my-1">
               <span id="taipei-temp" class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-teal-400">--°C</span>
             </div>
-            <span id="taipei-status" class="text-[11px] text-slate-400 font-medium">Updating...</span>
+            <span id="taipei-status" class="text-[11px] text-slate-400 font-medium truncate">Updating...</span>
           </div>
         </div>
       </section>
 
-      <nav id="day-tabs-container" class="flex gap-2 overflow-x-auto pb-2 no-scrollbar sticky top-[64px] bg-white py-2 z-40 shadow-[0_10px_15px_-10px_rgba(0,0,0,0.05)] w-full">
-        </nav>
+      <div class="w-full overflow-hidden">
+        <nav id="day-tabs-container" class="flex gap-2 overflow-x-auto pb-2 no-scrollbar sticky top-[64px] bg-white py-2 z-40 shadow-[0_10px_15px_-10px_rgba(0,0,0,0.05)] w-full snap-x">
+          </nav>
+      </div>
 
-      <div id="timeline-container" class="space-y-4 pt-1 w-full max-w-full">
+      <div id="timeline-container" class="space-y-4 pt-1 w-full max-w-full overflow-hidden">
         </div>
 
     </main>
@@ -75,7 +78,6 @@
     let currentLang = 'EN'; 
     let currentDayIndex = 0; 
 
-    // Complete rich text database layout mapping with real flight details
     const itineraryData = [
       {
         date: "26 May 2026",
@@ -87,7 +89,7 @@
             time: "19:45",
             titleEN: "Head to Airport Terminal (KLIA2)",
             titleZH: "从市区出发前往吉隆坡第二航站楼 (KLIA2)",
-            durationEN: "⏱️ Travel Time: ~1h • Private Charter Transfer",
+            durationEN: "⏱️ Travel Time: ~1h • Private Transfer",
             durationZH: "⏱️ 预计车程：约 1 小时 • 汽车接驳",
             shoppingEN: "Collect pre-booked mobile data SIM cards or international eSIM credentials.",
             shoppingZH: "可在机场柜台领取预订的移动上网随身卡，检查随身战利品背包。",
@@ -508,7 +510,7 @@
             shoppingEN: "Purchase Michelin-recommended golden goose oil jars or signature chili paste bottles.",
             shoppingZH: "强烈安利在阿城鹅肉前台打包买几瓶镇店之宝「黄金鹅油香葱精装罐」！",
             foodEN: "Indulge in ultra-juicy smoked goose slices OR boiling spicy hotpot rich broth packed with premium Taiwanese marbled beef plates!",
-            foodZH: "吃肉狂欢：不管是全台第一的阿城熏鹅肉，还是在「这一锅」用麻辣红汤疯狂涮煮油脂极其丰富的顶级美国极黑和牛板腱，都绝不会让你失望！"
+            foodZH: "吃肉狂欢：不管是全台第一的阿城鹅肉，还是在「这一锅」用麻辣红汤疯狂涮煮油脂极其丰富的顶级美国极黑和牛板腱，都绝不会让你失望！"
           },
           {
             type: "activity",
@@ -742,11 +744,9 @@
       return currentLang === 'EN' ? "Mild Breeze" : "和风怡人";
     }
 
-    // Dynamic Live Flight State Machine logic (Solves the "fake data" logic bug)
     function calculateFlightState(f) {
       const now = new Date();
       const currentYear = now.getFullYear();
-      // Month index 4 is May, Month index 5 is June
       const targetMonth = (f.targetDay >= 26) ? 4 : 5;
       
       const flightTime = new Date(currentYear, targetMonth, f.targetDay, f.targetHour, f.targetMinute, 0);
@@ -757,7 +757,6 @@
       let statusStrZH = "准点";
       let displayGate = f.defaultGate;
 
-      // Gate and status shifts dynamically based on actual clock timers
       if (diffMins > 180) {
         statusStrEN = "Scheduled";
         statusStrZH = "计划中";
@@ -838,7 +837,7 @@
         timeBadge.innerText = item.time;
 
         const headingElement = document.createElement('h3');
-        headingElement.className = "text-sm font-extrabold text-slate-900 tracking-tight leading-snug break-words flex-1 min-w-0";
+        headingElement.className = "text-sm font-extrabold text-slate-900 tracking-tight leading-snug break-all flex-1 min-w-0";
         headingElement.innerText = title;
 
         titleRow.appendChild(timeBadge);
@@ -847,37 +846,36 @@
 
         const badgeDiv = document.createElement('div');
         badgeDiv.className = "inline-flex items-center gap-1.5 bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-700 text-xs font-bold px-3 py-1 rounded-xl border border-indigo-100/50 max-w-full";
-        badgeDiv.innerHTML = `<span class="break-words">${durationText}</span>`;
+        badgeDiv.innerHTML = `<span class="break-all">${durationText}</span>`;
         body.appendChild(badgeDiv);
 
         if (item.isFlight && item.flightDetails) {
-          // Dynamic invocation of structural live tracking system calculations
           const flightState = calculateFlightState(item.flightDetails);
           const f = item.flightDetails;
           
           const flightBoard = document.createElement('div');
           flightBoard.className = "bg-slate-950 border border-slate-800 text-amber-400 font-mono text-[11px] rounded-xl p-3.5 space-y-2.5 shadow-inner w-full overflow-hidden";
           flightBoard.innerHTML = `
-            <div class="flex justify-between items-center text-[10px] text-slate-500 border-b border-slate-900 pb-1.5 font-sans min-w-0">
-              <span class="font-bold tracking-widest text-slate-400 truncate">✈️ FLIGHT: ${f.number}</span>
-              <span class="text-amber-500 font-black tracking-wider truncate">${f.carrier}</span>
+            <div class="flex justify-between items-center text-[10px] text-slate-500 border-b border-slate-900 pb-1.5 font-sans min-w-0 w-full">
+              <span class="font-bold tracking-widest text-slate-400 truncate flex-1 pr-1">✈️ FLIGHT: ${f.number}</span>
+              <span class="text-amber-500 font-black tracking-wider truncate shrink-0">${f.carrier}</span>
             </div>
             <div class="grid grid-cols-2 gap-y-2.5 gap-x-4 pt-0.5 w-full">
-              <div>
-                <span class="block text-[9px] text-slate-500 font-sans uppercase font-bold">${dict.schDep}</span>
-                <span class="text-sm font-extrabold tracking-wider text-slate-100">${f.depTime}</span>
+              <div class="min-w-0">
+                <span class="block text-[9px] text-slate-500 font-sans uppercase font-bold truncate">${dict.schDep}</span>
+                <span class="text-sm font-extrabold tracking-wider text-slate-100 truncate block">${f.depTime}</span>
               </div>
-              <div>
-                <span class="block text-[9px] text-slate-500 font-sans uppercase font-bold">${dict.terminal}</span>
+              <div class="min-w-0">
+                <span class="block text-[9px] text-slate-500 font-sans uppercase font-bold truncate">${dict.terminal}</span>
                 <span class="text-sm font-extrabold text-slate-100 truncate block">${f.terminal}</span>
               </div>
-              <div>
-                <span class="block text-[9px] text-slate-500 font-sans uppercase font-bold">${dict.gate}</span>
-                <span class="text-sm font-extrabold text-slate-100">${flightState.gate}</span>
+              <div class="min-w-0">
+                <span class="block text-[9px] text-slate-500 font-sans uppercase font-bold truncate">${dict.gate}</span>
+                <span class="text-sm font-extrabold text-slate-100 truncate block">${flightState.gate}</span>
               </div>
-              <div>
-                <span class="block text-[9px] text-slate-500 font-sans uppercase font-bold">${dict.status}</span>
-                <span class="text-xs font-black text-emerald-400 px-1.5 py-0.5 rounded bg-emerald-950/50 border border-emerald-900 inline-block mt-0.5 animate-pulse">${flightState.statusText}</span>
+              <div class="min-w-0">
+                <span class="block text-[9px] text-slate-500 font-sans uppercase font-bold truncate">${dict.status}</span>
+                <span class="text-xs font-black text-emerald-400 px-1.5 py-0.5 rounded bg-emerald-950/50 border border-emerald-900 inline-block mt-0.5 animate-pulse max-w-full truncate">${flightState.statusText}</span>
               </div>
             </div>
           `;
@@ -890,15 +888,15 @@
         const buyBox = document.createElement('div');
         buyBox.className = "bg-gradient-to-br from-amber-50/70 to-orange-50/30 border border-amber-100 rounded-xl p-3 shadow-2xs w-full min-w-0";
         buyBox.innerHTML = `
-          <h4 class="text-xs font-extrabold text-amber-800 flex items-center gap-1 mb-0.5">${dict.buyTitle}</h4>
-          <p class="text-xs text-slate-600 leading-relaxed font-semibold break-words">${shoppingText}</p>
+          <h4 class="text-xs font-extrabold text-amber-800 flex items-center gap-1 mb-0.5 shrink-0">${dict.buyTitle}</h4>
+          <p class="text-xs text-slate-600 leading-relaxed font-semibold break-all">${shoppingText}</p>
         `;
 
         const foodBox = document.createElement('div');
         foodBox.className = "bg-gradient-to-br from-emerald-50/70 to-teal-50/30 border border-emerald-100 rounded-xl p-3 shadow-2xs w-full min-w-0";
         foodBox.innerHTML = `
-          <h4 class="text-xs font-extrabold text-emerald-800 flex items-center gap-1 mb-0.5">${dict.foodTitle}</h4>
-          <p class="text-xs text-slate-600 leading-relaxed font-semibold break-words">${foodText}</p>
+          <h4 class="text-xs font-extrabold text-emerald-800 flex items-center gap-1 mb-0.5 shrink-0">${dict.foodTitle}</h4>
+          <p class="text-xs text-slate-600 leading-relaxed font-semibold break-all">${foodText}</p>
         `;
 
         targetsGrid.appendChild(buyBox);
@@ -914,7 +912,6 @@
       renderDayTabs();
       renderTimeline(currentDayIndex);
       fetchLiveWeather();
-      // Auto-update flight calculations and weather feeds continuously every 30 seconds
       setInterval(() => {
         renderTimeline(currentDayIndex);
       }, 30000);
