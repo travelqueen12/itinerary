@@ -146,10 +146,10 @@
               number: "TR834", 
               carrier: "Scoot Air",
               depTime: "02:15",
-              terminal: "Changi T2",
+              terminal: "Changi T1",
               gate: "F34",
-              statusEN: "Boarding",
-              statusZH: "准点 / 开放登机"
+              statusEN: "Scheduled",
+              statusZH: "计划中 / 准点"
             },
             shoppingEN: "Get plenty of rest to prepare for a thrilling self-drive island arrival.",
             shoppingZH: "建议在舒适宽敞的机舱内闭眼沉睡，为即将展开的冲绳大探险充沛电力！",
@@ -211,8 +211,8 @@
             titleZH: "濑长岛小希腊 (Umikaji Terrace) · 浪漫绝美纯白海滨阶梯漫步",
             durationEN: "⏱️ Drive Duration: 10 mins close coastal cruise",
             durationZH: "⏱️ 车程：沿跨海长堤行驶 10 分钟即达",
-            shoppingEN: "Look out for artisanal organic sea salt soaps and beach fashion lifestyle accessories.",
-            shoppingZH: "可在阶梯商铺中挑选极具地中海风格的小风车挂件、纯手工天然海盐护肤皂及遮阳帽。",
+            shoppingEN: "Rent beautiful sea shells, high-protection sunglasses, or localized resort merchandise.",
+            shoppingZH: "海滩小铺有贩卖特色贝壳风铃、海岛印花沙滩裙以及玩沙戏水玩具套组。",
             foodEN: "Indulge in the legendary ultra-fluffy 'Happy Pancake' (幸福鬆餅) or ice cold regional drinks with airplane landing views.",
             foodZH: "极致下午茶：必吃火爆全网、松软入口即化的「幸福松饼」！坐看飞机在湛蓝海面低空掠过降落！"
           },
@@ -346,7 +346,7 @@
             durationEN: "⏱️ Convenient Arrival: Secure parking spaces located directly adjacent to venue",
             durationZH: "⏱️ 交通：摄影店门前即有便利停车场，全家空手入店换装最轻松",
             shoppingEN: "Purchase custom Ryukyu handmade textile hair pin bars, folding fans, and colorful woven pouches.",
-            shoppingZH: "值得入手极极纪念意义的传统染织工艺发饰、复古纸扇、以及纯手工缝制的和风小零钱包。",
+            shoppingZH: "值得入手极具纪念意义的传统染织工艺发饰、复古纸扇、以及纯手工缝制的和风小零钱包。",
             foodEN: "Enjoy small local traditional sweet brown sugar candy offered by the studio staff.",
             foodZH: "换装时可品尝店家贴心提供的冲绳古法手工黑糖硬糖，清甜润喉。"
           },
@@ -474,8 +474,8 @@
               depTime: "08:10",
               terminal: "Naha Int'l L2",
               gate: "43",
-              statusEN: "On Time",
-              statusZH: "准点"
+              statusEN: "Scheduled",
+              statusZH: "计划中 / 准点"
             },
             shoppingEN: "Pick up last minute Okinawan goodies or duty free premium tobacco products.",
             shoppingZH: "那霸出境大厅可购买最后的冲绳限定巧克力或日本名酒伴手礼。",
@@ -630,8 +630,8 @@
               depTime: "13:00",
               terminal: "Taoyuan T1",
               gate: "B5",
-              statusEN: "On Time",
-              statusZH: "准点"
+              statusEN: "Scheduled",
+              statusZH: "计划中 / 准点"
             },
             shoppingEN: "Final duty free premium purchase of Kavalan single malt Taiwanese whisky and high mountain tea bricks.",
             shoppingZH: "机场免税店终极冲刺：必买世界冠军「台湾噶玛兰威士忌」与高档阿里山冷泡茶叶。",
@@ -652,8 +652,8 @@
               depTime: "21:30",
               terminal: "Hong Kong T1",
               gate: "Gate 28",
-              statusEN: "On Time",
-              statusZH: "准点"
+              statusEN: "Scheduled",
+              statusZH: "计划中 / 准点"
             },
             shoppingEN: "Grab world-famous Hong Kong Jenny Bakery butter cookies or fine duty-free liquors inside the transit lounge.",
             shoppingZH: "香港中转区最后扫货：顺手捎带珍妮曲奇小熊饼干、正牌大黄鸭文创或港式手信。",
@@ -807,6 +807,13 @@
         if (item.isFlight && item.flightDetails) {
           const f = item.flightDetails;
           const liveStatusText = (currentLang === 'EN') ? f.statusEN : f.statusZH;
+          
+          // Set dynamic badge styles color depending on status string to avoid misleading boarding highlights
+          const isScheduledState = (f.statusEN === "Scheduled");
+          const statusBadgeColorClass = isScheduledState 
+            ? "text-amber-400 bg-amber-950/40 border-amber-900" 
+            : "text-emerald-400 bg-emerald-950/50 border-emerald-900 animate-pulse";
+
           const flightBoard = document.createElement('div');
           flightBoard.className = "bg-slate-950 border border-slate-800 text-amber-400 font-mono text-[11px] rounded-xl p-3.5 space-y-2.5 shadow-inner w-full overflow-hidden";
           flightBoard.innerHTML = `
@@ -829,7 +836,7 @@
               </div>
               <div>
                 <span class="block text-[9px] text-slate-500 font-sans uppercase font-bold">${dict.status}</span>
-                <span class="text-xs font-black text-emerald-400 px-1.5 py-0.5 rounded bg-emerald-950/50 border border-emerald-900 inline-block mt-0.5 animate-pulse">${liveStatusText}</span>
+                <span class="text-xs font-black px-1.5 py-0.5 rounded border inline-block mt-0.5 ${statusBadgeColorClass}">${liveStatusText}</span>
               </div>
             </div>
           `;
